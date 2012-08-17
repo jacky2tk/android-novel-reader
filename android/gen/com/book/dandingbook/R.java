@@ -23,23 +23,45 @@ public final class R {
         public static final int menu3=0x7f020004;
     }
     public static final class id {
-        public static final int TableLayout1=0x7f080000;
-        public static final int imageButton1=0x7f080001;
-        public static final int imageButton2=0x7f080002;
-        public static final int imageButton3=0x7f080003;
-        public static final int menu_settings=0x7f080004;
+        public static final int TableLayout1=0x7f08000e;
+        public static final int TableRow01=0x7f080006;
+        public static final int TableRow02=0x7f080003;
+        public static final int TableRow03=0x7f080000;
+        public static final int TextView01=0x7f080007;
+        public static final int TextView02=0x7f080004;
+        public static final int TextView03=0x7f080001;
+        public static final int btnAbort=0x7f08000d;
+        public static final int btnLogin=0x7f080011;
+        public static final int btnRead=0x7f080012;
+        public static final int btnRegister=0x7f08000c;
+        public static final int edtAccount=0x7f080005;
+        public static final int edtMemName=0x7f080002;
+        public static final int edtPassword=0x7f080008;
+        public static final int edtPassword2=0x7f08000b;
+        public static final int menu_settings=0x7f080013;
+        public static final int tableRow1=0x7f080009;
+        public static final int tableRow2=0x7f08000f;
+        public static final int textView1=0x7f08000a;
+        public static final int textView2=0x7f080010;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int add_mem=0x7f030000;
+        public static final int main=0x7f030001;
     }
     public static final class menu {
         public static final int main=0x7f070000;
     }
     public static final class string {
         public static final int app_name=0x7f050000;
+        public static final int btn_abort=0x7f050009;
+        public static final int btn_register=0x7f050008;
         public static final int hello_world=0x7f050001;
         public static final int menu_settings=0x7f050002;
         public static final int title_activity_main=0x7f050003;
+        public static final int txt_account=0x7f050004;
+        public static final int txt_mem_name=0x7f050006;
+        public static final int txt_password=0x7f050005;
+        public static final int txt_password2=0x7f050007;
     }
     public static final class style {
         public static final int AppTheme=0x7f060000;
