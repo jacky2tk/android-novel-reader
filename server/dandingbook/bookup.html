@@ -37,7 +37,6 @@ function jbookup(){
 		m_image = document.getElementById('b_image').value ;
 		m_data = m_name+","+m_intro+","+m_author+","+m_issue+","+m_path+","+m_image ;
 		m_return = jajax("bookup_ajax.php?case=insert&data="+m_data) ;
-		alert(m_return);
 		if(m_return){
 			if(confirm("資料已新增，是否繼續下一筆？")){
 				document.form1.submit() ;
