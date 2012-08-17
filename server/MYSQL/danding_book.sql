@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- 主機: localhost
--- 建立日期: Aug 16, 2012, 03:45 AM
+-- 建立日期: Aug 17, 2012, 02:49 AM
 -- 伺服器版本: 5.0.51
 -- PHP 版本: 5.2.6
 
@@ -23,17 +23,21 @@ CREATE TABLE `all_book` (
   `b_id` int(10) unsigned NOT NULL auto_increment,
   `b_name` varchar(20) NOT NULL,
   `b_path` varchar(80) NOT NULL,
-  `b_imge` varchar(80) NOT NULL,
-  `b_intro` varchar(60) NOT NULL,
-  `b_author` varchar(20) NOT NULL,
-  `b_issue` varchar(20) NOT NULL,
+  `b_image` varchar(80) default NULL,
+  `b_intro` varchar(60) default NULL,
+  `b_author` varchar(20) default NULL,
+  `b_issue` varchar(20) default NULL,
   PRIMARY KEY  (`b_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 -- 
 -- 列出以下資料庫的數據： `all_book`
 -- 
 
+INSERT INTO `all_book` VALUES (1, 'dfas', 'C:\\fakepath\\Eclipse_hotkey.txt', 'C:\\fakepath\\Eclipse_hotkey.txt', 'fdsa', 'dfsa', 'dfas');
+INSERT INTO `all_book` VALUES (2, 'dfsa', 'BOOK_', 'IMG_', 'dfas', 'dfsa', 'dfas');
+INSERT INTO `all_book` VALUES (3, 'abdb', 'BOOK_2', 'IMG_2', 'dfsb', 'dsafs', 'dfsb');
+INSERT INTO `all_book` VALUES (4, 'dsaf', 'BOOK_4', '', '', '', '');
 
 -- --------------------------------------------------------
 
