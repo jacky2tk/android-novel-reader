@@ -14,14 +14,14 @@
 </style>
 <script language="JavaScript" type="text/JavaScript" src="_func/_js/ajax.js"></script>
 <script>
-function jimageshow(lc_id, lc_image){
+function jimgshow(lc_id, lc_image){
 	if(lc_image!=""){
 		//document.getElelemtById('myimg').style.display="" ;
-		document.getElementById('myimg').src = "http://ts1.mm.bing.net/images/thumbnail.aspx?q=4998805733312816&id=fbf5c426a85e53a408a58f3f70e84544" ;
+		alert(lc_image) ;
+		document.getElementById(lc_id).src = lc_image ;
 	}
 }
 function jbookup(){
-	alert(1) ;
 	m_name = document.getElementById('b_name').value ;
 	m_path = document.getElementById('b_path').value ;
 	m_str = "" ;
@@ -31,22 +31,17 @@ function jbookup(){
 		alert(m_str+" ,欄位不得空白喔!") ;
 	}
 	else{
-	alert(2) ;
 		m_intro = document.getElementById('b_intro').value ;
 		m_author = document.getElementById('b_author').value ;
 		m_issue = document.getElementById('b_issue').value ;
 		m_image = document.getElementById('b_image').value ;
-		m_date = m_name+","+m_intro+","+m_author+","+m_issue+","+m_path+","+m_image ;
-		alert(m_date) ;
-		m_return = jajax("bookup_ajax.php?case=insert") ;
-		alert(11) ;
-		alert(m_return) ;
-		
+		m_data = m_name+","+m_intro+","+m_author+","+m_issue+","+m_path+","+m_image ;
+		m_return = jajax("bookup_ajax.php?case=insert&data="+m_data) ;
+		alert(m_return);
 		if(m_return){
-			/*if(confirm("資料已新增，是否繼續下一筆？")){
+			if(confirm("資料已新增，是否繼續下一筆？")){
 				document.form1.submit() ;
-			}*/
-			alert("資料已新增") ;
+			}
 		}
 	}
 }
@@ -71,7 +66,7 @@ function jbookup(){
       <td colspan="2"><label>
         &nbsp;
         <input name="b_author" type="text" id="b_author" size="20" />
-      </label></td>
+      </label> </td>
     </tr>
     <tr>
       <td align="right"><span class="style3">出版社&nbsp;</span></td>
@@ -99,8 +94,10 @@ function jbookup(){
       <td width="295" valign="top"><label>
       &nbsp;
       <input type="file" name="b_image" id="b_image" value="C:\Users\a\Desktop\3651472_160045041911_2.jpg" />
+      <!--onchange="javascript:jimgshow('myimg',this.value);"-->
       </label></td>
-      <td width="218" valign="top"><input name="myimg" type="image" id="myimg" src="http://ts1.mm.bing.net/images/thumbnail.aspx?q=4998805733312816&id=fbf5c426a85e53a408a58f3f70e84544" style="display:none" /></td>
+      <td width="218" valign="top"><input name="myimg" type="image" id="myimg" src="C|/thumbnailCAX3K5WQ.jpg" height="200" style="display:none" /></td>
+      <!-- style="display:none"-->
     </tr>
     
     <tr>
