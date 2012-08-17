@@ -23,14 +23,19 @@ switch ($m_case){
 	$m_path = $m_data[4] ;
 	$m_image = $m_data[5] ;
 	
-	$m_path = "BOOK_".$m_maxid ;		//重新給檔案路徑名稱
-	($m_image!="")?$m_image = "IMG_".$m_maxid:$m_image="" ;  //重新給img檔名，先判斷是否有要上傳圖片
+	$m_path_ext = substr($m_path,strrpos($m_path,".")) ;
+	$m_image_ext = substr($m_image,strrpos($m_image,".")) ;
+	
+	$m_path = "BOOK_".$m_maxid.$m_path_ext ;		//重新給檔案路徑名稱
+	($m_image!="")?$m_image = "IMG_".$m_maxid.$m_image_ext:$m_image="" ;  //重新給img檔名，先判斷是否有要上傳圖片
+	
 	
 	$m_filed = Array("b_name","b_intro","b_author","b_issue","b_path","b_image") ;
 	$m_value = Array($m_name,$m_intro,$m_author,$m_issue,$m_path,$m_image) ;
 	
 	DB_INSERT($GLOBALS["DB_BOOK"],$m_filed,$m_value); //新增
-	echo true ;
+	
+	echo "OK,".$m_path.",".$m_image ;
 	exit ;
 }
 ?>
