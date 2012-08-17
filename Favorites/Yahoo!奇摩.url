@@ -1,0 +1,15 @@
+[DEFAULT]
+BASEURL=http://tw.yahoo.com/
+[DOC#382]
+BASEURL=http://l.yimg.com/f/i/tw/ysm/ruby/ruby_iframe_ne.html?ctxtID=ysmcmtarget&Partner=yahoo_tw_ruby_homepage_ne2_cm
+ORIGURL=http://l.yimg.com/f/i/tw/ysm/ruby/ruby_iframe_ne.html?ctxtID=ysmcmtarget&Partner=yahoo_tw_ruby_homepage_ne2_cm
+[DOC#760]
+BASEURL=http://l.yimg.com/f/i/tw/ysm/ruby/ruby_iframe_350100.html?ctxtID=&Partner=yahoo_tw_ruby_homepage_et_cm&v=20110726
+ORIGURL=http://l.yimg.com/f/i/tw/ysm/ruby/ruby_iframe_350100.html?ctxtID=&Partner=yahoo_tw_ruby_homepage_et_cm&v=20110726
+[InternetShortcut]
+URL=http://tw.yahoo.com/
+IDList=
+IconFile=http://tw.yahoo.com/favicon.ico
+IconIndex=1
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,2
