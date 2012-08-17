@@ -9,19 +9,19 @@ $TmpPath = explode("/",$_SERVER["PHP_SELF"]);
 $GLOBALS["SQL_HOST"] = "localhost";
 
 if($_SERVER["HTTP_HOST"]=="127.0.0.1"){
-    $GLOBALS["SQL_NAME"] = "checkin";
+    $GLOBALS["SQL_NAME"] = "danding_book";
     $GLOBALS["SQL_USER"] = "root";
-    $GLOBALS["SQL_PASS"] = "9957";
+    $GLOBALS["SQL_PASS"] = "1";
 }else{
-    $GLOBALS["SQL_NAME"] = "checkin";
+    $GLOBALS["SQL_NAME"] = "danding_book";
     $GLOBALS["SQL_USER"] = "root";
-    $GLOBALS["SQL_PASS"] = "9957";
+    $GLOBALS["SQL_PASS"] = "1";
 }
 
 
 #DataBase
 
-$GLOBALS["DB_USER"] = "fb_user";
+$GLOBALS["DB_BOOK"] = "all_book";
 $GLOBALS["DB_RECORD"] = "fb_record";
 
 
