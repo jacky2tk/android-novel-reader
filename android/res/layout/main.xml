@@ -1,0 +1,8 @@
+<TableLayout android:id="@+id/TableLayout1" android:layout_width="match_parent"
+    android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <ImageButton android:id="@+id/imageButton1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:src="@drawable/menu1"/>
+    <Space android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <ImageButton android:id="@+id/imageButton2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/menu2"/>
+    <ImageButton android:id="@+id/imageButton3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical|fill_vertical" android:layout_marginBottom="79dp" android:src="@drawable/menu3"/>
+
+</TableLayout>
