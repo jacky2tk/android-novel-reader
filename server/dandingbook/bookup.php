@@ -27,7 +27,7 @@ function jbookup(){
 	m_path = document.getElementById('b_path').value ;
 	m_str = "" ;
 	if(m_name=="") m_str = " 書名 " ; 
-	//if(m_path=="") m_str = m_str + " 路徑" ;
+	if(m_path=="") m_str = m_str + " 路徑" ;
 	if(m_str!=""){
 		alert(m_str+" ,欄位不得空白喔!") ;
 	}
