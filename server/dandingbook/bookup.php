@@ -10,6 +10,7 @@
 .style4 {
 	font-size: 24px
 }
+.style5 {font-size: 12px}
 -->
 </style>
 <script language="JavaScript" type="text/JavaScript" src="_func/_js/ajax.js"></script>
@@ -86,10 +87,11 @@ function jbookup(){
     </tr>
     <tr>
       <td height="34" align="right"><span class="style3">資料檔案路徑&nbsp;</span></td>
-      <td colspan="2"><label>
+      <td><label>
       &nbsp;
-      <input type="file" name="b_path" id="b_path" value="C:\Users\a\Desktop\3651472_160045041911_2.jpg" />
+      <input type="file" name="b_path" id="b_path"/>
       </label></td>
+      <td><span class="style5">*注:格式限制.txt檔案</span></td>
     </tr>
     <tr>
       <td align="right" valign="top"><span class="style3">圖片檔案路徑&nbsp;</span></td>
@@ -98,7 +100,8 @@ function jbookup(){
       <input type="file" name="b_image" id="b_image" />
       <!--onchange="javascript:jimgshow('myimg',this.value);"-->
       </label></td>
-      <td width="218" valign="top"><input name="myimg" type="image" id="myimg" src="C|/thumbnailCAX3K5WQ.jpg" height="200" style="display:none" /></td>
+      <td width="218" valign="top"><input name="myimg" type="image" id="myimg" src="C|/thumbnailCAX3K5WQ.jpg" height="200" style="display:none" />
+        <span class="style5">*注: 圖片格式，限制於GIF、JPG</span></td>
       <!-- style="display:none"-->
     </tr>
     
@@ -111,7 +114,6 @@ function jbookup(){
        <input type="hidden" name="hidden_up" id="hidden_up" />
       </label></td>
     </tr>
-    
   </table>
 </form>
 <?php
