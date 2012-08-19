@@ -1,6 +1,9 @@
 package com.book.dandingbook;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +23,16 @@ public class Main extends Activity {
         //移除 Title bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
+        
+        NotificationManager barManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification barMsg = new Notification(R.drawable.ic_launcher1,"淡定書城",System.currentTimeMillis());
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, 
+        		new Intent(this,Main.class), 
+        		PendingIntent.FLAG_UPDATE_CURRENT);
+
+        barMsg.setLatestEventInfo(this, "我是通知訊息", "我是通知內容", contentIntent);
+        barManager.cancelAll();
+        barManager.notify(0,barMsg);
         
         findViews();		// 取得所有控制項
 		setListeners();		// 設定所有按鈕 Listener
