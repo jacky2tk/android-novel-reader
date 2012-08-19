@@ -25,7 +25,7 @@ public class Main extends Activity {
         setContentView(R.layout.main);
         
         NotificationManager barManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Notification barMsg = new Notification(R.drawable.ic_launcher1,"淡定書城",System.currentTimeMillis());
+        Notification barMsg = new Notification(R.drawable.ic_launcher,"淡定書城",System.currentTimeMillis());
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, 
         		new Intent(this,Main.class), 
         		PendingIntent.FLAG_UPDATE_CURRENT);
