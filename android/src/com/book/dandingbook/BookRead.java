@@ -1,23 +1,17 @@
 package com.book.dandingbook;
 
-
-
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.support.v4.app.NavUtils;
 
 public class BookRead extends Activity {
 	private static final int MENU_MUSIC = Menu.FIRST,
@@ -28,7 +22,8 @@ public class BookRead extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //移除title bar
+        
+        //移除 Title bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.book_read);
         NotificationManager barManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -40,30 +35,35 @@ public class BookRead extends Activity {
         barMsg.setLatestEventInfo(this, "我是通知訊息", "我是通知內容", contentIntent);
         barManager.cancelAll();
         barManager.notify(0,barMsg);
-        try{
+		
+        try {
         	mPlayer = MediaPlayer.create(this, R.raw.ss); 
         	mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC); 
         	mPlayer.setLooping(true); 
-           }catch (IllegalStateException e) 
-	           {
-		       		e.printStackTrace(); 
-	           }
-}
+        	
+        } catch (IllegalStateException e) {
+        	e.printStackTrace(); 
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+	}
  
-	@Override  protected void onResume()    
-    {  
+	@Override  
+	protected void onResume() {  
     	// TODO Auto-generated method stub            
     	super.onResume();    
     	mPlayer.start();   
     } 
-    @Override  protected void onPause()   
-    {  
+	
+    @Override  
+    protected void onPause() {  
     	// TODO Auto-generated method stub            
     	super.onPause();   
     	mPlayer.pause();   
     } 
-    @Override  protected void onDestroy()   
-    {    
+    
+    @Override  
+    protected void onDestroy() {    
     	// TODO Auto-generated method stub       
     	super.onDestroy();       
     	mPlayer.release();   
@@ -93,13 +93,5 @@ public class BookRead extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-    
 
 }
-
-
-
-
-
-
-
