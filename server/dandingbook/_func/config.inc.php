@@ -22,7 +22,8 @@ if($_SERVER["HTTP_HOST"]=="127.0.0.1"){
 #DataBase
 
 $GLOBALS["DB_BOOK"] = "all_book";
-$GLOBALS["DB_RECORD"] = "fb_record";
+$GLOBALS["DB_USER"] = "user_info";
+$GLOBALS["DB_USER_BOOK"] = "user_book";
 
 
 $GLOBALS["PAGE_NUM"] = 50;      #每頁顯示資料筆數
