@@ -26,15 +26,7 @@ public class BookRead extends Activity {
         //移除 Title bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.book_read);
-        NotificationManager barManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Notification barMsg = new Notification(R.drawable.ic_launcher,"淡定書城",System.currentTimeMillis());
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, 
-        		new Intent(this,Main.class), 
-        		PendingIntent.FLAG_UPDATE_CURRENT);
-
-        barMsg.setLatestEventInfo(this, "我是通知訊息", "我是通知內容", contentIntent);
-        barManager.cancelAll();
-        barManager.notify(0,barMsg);
+        
 		
         try {
         	mPlayer = MediaPlayer.create(this, R.raw.ss); 
