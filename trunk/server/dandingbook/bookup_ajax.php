@@ -26,8 +26,8 @@ switch ($m_case){
 	$m_path_ext = substr($m_path,strrpos($m_path,".")) ;
 	$m_image_ext = substr($m_image,strrpos($m_image,".")) ;
 	
-	$m_path = "book_".$m_maxid.$m_path_ext ;		//重新給檔案路徑名稱
-	($m_image!="")?$m_image = "img_".$m_maxid.$m_image_ext:$m_image="" ;  //重新給img檔名，先判斷是否有要上傳圖片
+	$m_path = "book_".$m_maxid.strtolower($m_path_ext) ;		//重新給檔案路徑名稱
+	($m_image!="")?$m_image = "img_".$m_maxid.strtolower($m_image_ext):$m_image="" ;  //重新給img檔名，先判斷是否有要上傳圖片
 	
 	
 	$m_filed = Array("b_name","b_intro","b_author","b_issue","b_path","b_image") ;
