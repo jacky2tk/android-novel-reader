@@ -1,5 +1,18 @@
-<TableLayout android:id="@+id/TableLayout1" android:layout_width="match_parent"
-    android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/TableLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/title_logo" />
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -54,12 +67,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:contentDescription="@string/btn_login"
         android:src="@drawable/menu1" />
 
     <ImageButton
         android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:contentDescription="@string/btn_register"
         android:src="@drawable/menu2" />
 
     <ImageButton
@@ -67,7 +86,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|fill_vertical"
-        android:layout_marginBottom="79dp"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:contentDescription="@string/btn_bookread"
         android:src="@drawable/menu3" />
 
 </TableLayout>
