@@ -19,7 +19,7 @@ switch ($m_case) {
 	// 書本清單
 	// 回傳值: 逗號分隔的書本名稱
 	case "book_list":
-		$m_query = DB_QUERY("SELECT b_name FROM $GLOBALS[DB_BOOK]");
+		$m_query = DB_QUERY("SELECT b_id,b_name FROM $GLOBALS[DB_BOOK]");
 		$m_rows = mysql_num_rows($m_query);	// 取得資料筆數
 		
 		// 將資料組成以逗號相隔的字串
@@ -28,9 +28,9 @@ switch ($m_case) {
 			$m_q = mysql_fetch_array($m_query);
 			
 			if ($m_result == "")
-				$m_result = $m_q[b_name];
+				$m_result = $m_q[b_id]. $CONST_SPLITER. $m_q[b_name];
 			else
-				$m_result = $m_result. $CONST_SPLITER. $m_q[b_name];
+				$m_result = $m_result. $CONST_SPLITER. $m_q[b_id]. $CONST_SPLITER. $m_q[b_name];
 		}
 		
 		echo $m_result;
@@ -46,7 +46,7 @@ switch ($m_case) {
 		
 		// 將資料組成以逗號相隔的字串
 		$m_result = $m_q[b_id]. $CONST_SPLITER;					// 編號
-		$m_result = $m_result. $m_q[b_name]. $CONST_SPLITER;	// 姓名
+		$m_result = $m_result. $m_q[b_name]. $CONST_SPLITER;	// 書名
 		$m_result = $m_result. $m_q[b_intro]. $CONST_SPLITER;	// 簡介
 		$m_result = $m_result. $m_q[b_author]. $CONST_SPLITER;	// 作者
 		$m_result = $m_result. $m_q[b_issue]. $CONST_SPLITER;	// 出版商
