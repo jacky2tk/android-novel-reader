@@ -29,7 +29,7 @@ public class BookRead extends Activity {
         
 		
         try {
-        	mPlayer = MediaPlayer.create(this, R.raw.ss); 
+        	//mPlayer = MediaPlayer.create(this, R.raw.ss); 
         	mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC); 
         	mPlayer.setLooping(true); 
         	

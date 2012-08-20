@@ -5,11 +5,17 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,6 +25,7 @@ public class BookList extends Activity {
 	
 	private String strBookList = "";	// 存放從 Server 下載的小說清單
 	private ListView lstBook;			// 顯示小說清單的控制項
+	private CustomAdapter adapter;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,45 +55,53 @@ public class BookList extends Activity {
 			
 			String[] aryBookList = strBookList.split(",");
 			
-			if (aryBookList.length > 0) {
-				List<String> list = new ArrayList<String>();
+			if (aryBookList.length > 0) {								
+				adapter.clear();
 				
-				for (int i = 0; i < aryBookList.length; i++)
-					list.add(aryBookList[i]);
-				
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-		        		BookList.this,
-		        		android.R.layout.simple_list_item_1,
-		        		list
-		        		);
-				
+				adapter.addSeparator("可下載的小說");
+				for (int i = 0; i < aryBookList.length; i += 2) {
+					View ListLabView = adapter.addLabItem(aryBookList[i+1]);
+					ListLabView.setTag(aryBookList[i]);
+				}
 				lstBook.setAdapter(adapter);
+				
+				lstBook.setOnItemClickListener(new OnItemClickListener() {
+
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						//Toast.makeText(BookList.this, "第 " + position + " 個項目", Toast.LENGTH_SHORT).show();
+						Intent intent = new Intent(BookList.this, BookDetail.class);
+						//intent.putExtra("ID", String.valueOf(position+1));
+						intent.putExtra("ID", view.getTag().toString());
+						startActivity(intent);
+					}
+					
+				});
 			}
 		}
     	
     };
     
-    // 透過 Server 的 PHP 讀出 MySQL 的資料內容
-	Thread thread = new Thread() {
-		public void run() {
-			try {
-				// 取得資料
-				if (Debug.On) Log.d(TAG, "Sent GET request");
-				strBookList = Network.getData(getString(R.string.agent_url), "case=book_list");
-				
-				if (Debug.On) Log.d(TAG, "Callback to main loop");
-				DownloadHandler.post(DownloadCallback);
-			} catch (Exception e) {
-				Log.e(TAG, e.getMessage());
-				System.out.println(e.getMessage());
-			}
-		}
-	};
-	
-	// 從 Server 下載小說清單
+    // 從 Server 下載小說清單
 	private void getBookList() {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE); 
     	if (Network.haveNetworkConnection(cm)){
+    		// 透過 Server 的 PHP 讀出 MySQL 的資料內容
+    		Thread thread = new Thread() {
+    			public void run() {
+    				try {
+    					if (Debug.On) Log.d(TAG, "Sent GET request");
+    					strBookList = Network.getData(getString(R.string.agent_url), "case=book_list");
+    					
+    					if (Debug.On) Log.d(TAG, "Callback to main loop");
+    					DownloadHandler.post(DownloadCallback);
+    				} catch (Exception e) {
+    					Log.e(TAG, e.getMessage());
+    					System.out.println(e.getMessage());
+    				}
+    			}
+    		};
+    		
     		try {
 	    		//progress.show();
 	    	    thread.start();
@@ -100,21 +115,11 @@ public class BookList extends Activity {
 	}
 	
 	// 初始化小說清單
-	private void initBookList() {
-		// 建立空的 ListView        
-        Log.d(TAG, "Create empty ListView");
-    	ListView lstBook = (ListView)findViewById(R.id.lstBook);
+	private void initBookList() {		
+		//實體化CustomAdapter
+        adapter = new CustomAdapter((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         
-        //CharSequence[] list = {};
-    	Log.d(TAG, "Add element of ListView");
-    	List<String> list = new ArrayList<String>();
-    	list.add("無資料");
-        
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-        		BookList.this,
-        		android.R.layout.simple_list_item_1,
-        		list
-        		);
+        View ListLabView = adapter.addLabItem("無資料");
         
         lstBook.setAdapter(adapter);
 	}
