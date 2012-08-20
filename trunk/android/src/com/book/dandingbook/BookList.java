@@ -1,8 +1,5 @@
 package com.book.dandingbook;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,7 +13,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -49,8 +45,6 @@ public class BookList extends Activity {
 
 		public void run() {
 			//progress.dismiss();
-			//edtAccount.setText(GetResult);
-			Toast.makeText(BookList.this, "Download Complete!", Toast.LENGTH_LONG).show();
 			Log.d(TAG, "Handler: " + strBookList);
 			
 			String[] aryBookList = strBookList.split(",");
@@ -58,7 +52,7 @@ public class BookList extends Activity {
 			if (aryBookList.length > 0) {								
 				adapter.clear();
 				
-				adapter.addSeparator("可下載的小說");
+				adapter.addSeparator(getString(R.string.book_list_title));
 				for (int i = 0; i < aryBookList.length; i += 2) {
 					View ListLabView = adapter.addLabItem(aryBookList[i+1]);
 					ListLabView.setTag(aryBookList[i]);
@@ -91,8 +85,10 @@ public class BookList extends Activity {
     			public void run() {
     				try {
     					if (Debug.On) Log.d(TAG, "Sent GET request");
-    					strBookList = Network.getData(getString(R.string.agent_url), "case=book_list");
-    					
+    					strBookList = Network.getData(
+    							getString(R.string.url_host) + getString(R.string.url_agent), 
+    							"case=book_list");
+
     					if (Debug.On) Log.d(TAG, "Callback to main loop");
     					DownloadHandler.post(DownloadCallback);
     				} catch (Exception e) {
@@ -109,6 +105,7 @@ public class BookList extends Activity {
     			Log.e(TAG, e.getMessage());
     			System.out.println(e.getMessage());
     		}
+    		
     	} else {
     		Toast.makeText(BookList.this, "請先連上網路!", Toast.LENGTH_LONG).show();
     	}

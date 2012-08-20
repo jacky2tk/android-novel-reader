@@ -28,12 +28,16 @@ public class Main extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        //移除 Title bar
+        // 移除 Title bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
         
+        // 將程式註冊到通知列
         NotificationManager barManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Notification barMsg = new Notification(R.drawable.ic_launcher,"淡定書城",System.currentTimeMillis());
+        Notification barMsg = new Notification(
+        		R.drawable.ic_launcher,
+        		getString(R.string.app_name),
+        		System.currentTimeMillis());
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, 
         		new Intent(this,Main.class), 
         		PendingIntent.FLAG_UPDATE_CURRENT);
@@ -44,6 +48,12 @@ public class Main extends Activity {
         
         findViews();		// 取得所有控制項
 		setListeners();		// 設定所有按鈕 Listener
+		
+		// 開發 Debug 模式時, 自動填入測試的帳號及密碼
+		if (Debug.On) {
+			txt_account.setText("a");
+			txt_pwd.setText("a");
+		}
         
     }
 	
@@ -93,6 +103,8 @@ public class Main extends Activity {
 			}
 		});
 	}
+	
+	// 「登入」的 callback, 檢查是否登入成功
 	final Handler DownloadHandler = new Handler();
     final Runnable DownloadCallback = new Runnable() {
 		public void run() {
@@ -120,7 +132,9 @@ public class Main extends Activity {
     				try {
     					
     					if (Debug.On) Log.d(TAG, "Sent GET request");
-    					strMain = Network.getData(getString(R.string.agent_url), "case=user_login"+contents);
+    					strMain = Network.getData(
+    							getString(R.string.url_host) + getString(R.string.url_agent), 
+    							"case=user_login"+contents);
     					
     					if (Debug.On) Log.d(TAG, "Callback to main loop");
     					DownloadHandler.post(DownloadCallback);
@@ -141,6 +155,7 @@ public class Main extends Activity {
     		Toast.makeText(Main.this, "請先連上網路!", Toast.LENGTH_LONG).show();
     	}
 	}
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);

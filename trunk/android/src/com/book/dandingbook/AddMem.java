@@ -63,6 +63,7 @@ public class AddMem extends Activity {
 			}
 		});
     }
+    
     final Handler DownloadHandler = new Handler();
     final Runnable DownloadCallback = new Runnable() {
 		public void run() {
@@ -78,7 +79,7 @@ public class AddMem extends Activity {
 				Button Dialog_btn = new Button(AddMem.this) ;
 				Dialog_btn.setText("確定") ;
 				final Dialog dialog = new Dialog(AddMem.this) ;
-				dialog.setTitle("您的帳號已註冊成功!") ;
+				dialog.setTitle("您的帳號已註冊成功!") ;				
 				dialog.setContentView(Dialog_btn) ;//設置內容
 				dialog.show() ; //顯示
 				Dialog_btn.setOnClickListener(new OnClickListener() {//按下對話視窗上的按鈕來關閉Dialog視窗
@@ -93,6 +94,7 @@ public class AddMem extends Activity {
 		}
     	
     };
+    
 	//檢查是否連上網路
     private void getAddMem(final CharSequence contents) {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE); 
@@ -102,7 +104,9 @@ public class AddMem extends Activity {
     				try {
     					
     					if (Debug.On) Log.d(TAG, "Sent GET request");
-    					strAddMem = Network.getData(getString(R.string.agent_url), "case=user_add"+contents);
+    					strAddMem = Network.getData(
+    							getString(R.string.url_host) + getString(R.string.url_agent), 
+    							"case=user_add"+contents);
     					
     					if (Debug.On) Log.d(TAG, "Callback to main loop");
     					DownloadHandler.post(DownloadCallback);
