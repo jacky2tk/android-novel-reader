@@ -127,7 +127,7 @@ public class Network {
 	public static String getSDPath(){
     	StringBuilder SB = new StringBuilder();
 		SB.append(android.os.Environment.getExternalStorageDirectory().getAbsolutePath());
-		SB.append("/BookDownload/");
+		SB.append("/dandingbook/");
 		
 		File myDataPath = new File(SB.toString());
     	if (!myDataPath.exists()) {
