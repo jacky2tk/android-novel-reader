@@ -59,32 +59,33 @@ switch ($m_case) {
 	// 使用者註冊
 	// 回傳值:  1 - 成功,  0 - 失敗
 	case "user_add":
-		$m_name = $_GET["b_name"];
-		$m_account = $_GET["b_account"];
-		$m_pwd = $_GET["b_pwd"];
+		$m_name = $_GET["name"];
+		$m_account = $_GET["account"];
+		$m_pwd = $_GET["pwd"];
 		
-		$m_query = DB_QUERY("SELECT * FROM $GLOBALS[DB_USER] WHERE b_account = '$m_account'");
+		$m_query = DB_QUERY("SELECT b_id FROM $GLOBALS[DB_USER] WHERE b_account='".$m_account."'");
+		$m_row = mysql_num_rows($m_query) ;
 		
-		if (mysql_num_rows($m_query) == 0) {
-			// 新增一筆使用者
-			$m_filed = Array("b_name", "b_account", "b_pwd") ;
-			$m_value = Array($m_name, $m_account, $m_pwd) ;
+		if($m_row==0){
 			
-			DB_INSERT($GLOBALS["DB_USER"], $m_filed, $m_value); // 新增
-			echo 1;
+			$m_filed = Array("b_name","b_account","b_pwd") ;
+			$m_value = Array($m_name,$m_account,$m_pwd) ;
 			
-		} else {
-			// 註冊失敗, account 已經有人使用
-			echo 0;
+			DB_INSERT($GLOBALS[DB_USER],$m_filed,$m_value); //新增
+			echo "1" ;
 		}
+		else{
+			echo "0" ;
+		}
+		
 		break;
 		
 	// --------------------------------------------------------------
 	// 使用者登入
 	// 回傳值:  1 - 成功,  0 - 失敗
 	case "user_login":
-		$m_account = $_GET["b_account"];
-		$m_pwd = $_GET["b_pwd"];
+		$m_account = $_GET["account"];
+		$m_pwd = $_GET["pwd"];
 		
 		// 比對帳號及密碼 (不分大小寫)
 		// TODO: 未來可考慮帳號及密碼區分大小寫
@@ -94,7 +95,7 @@ switch ($m_case) {
 			"b_account = '$m_account' and b_pwd = '$m_pwd'");
 		
 		// 回傳是否登入成功 (布林值)
-		echo (mysql_num_rows($m_query) > 0)? 1: 0;
+		echo (mysql_num_rows($m_query) > 0)? "1": "0";
 			
 		break;
 }
