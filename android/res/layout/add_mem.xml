@@ -15,15 +15,12 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_mem_name" />
 
-
-
-
         <EditText
             android:id="@+id/edtMemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="text|textPersonName" />
 
     </TableRow>
 
@@ -39,13 +36,12 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_account" />
 
-
         <EditText
             android:id="@+id/edtAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="text|textPersonName" />
 
     </TableRow>
 
@@ -61,15 +57,12 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_password" />
 
-
-
-
         <EditText
             android:id="@+id/edtPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="text|textPassword" />
 
     </TableRow>
 
@@ -85,30 +78,29 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_password2" />
 
-
         <EditText
             android:id="@+id/edtPassword2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" >
+            android:inputType="text|textPassword" >
 
             <requestFocus />
         </EditText>
 
     </TableRow>
 
-
-
-
-
+    <TextView
+        android:id="@+id/pwd_warn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Red"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|clip_horizontal" >
-
-
 
         <Button
             android:id="@+id/btnRegister"
