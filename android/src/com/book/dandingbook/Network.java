@@ -53,6 +53,7 @@ public class Network {
 						
 		} catch(Exception e) {
 			e.printStackTrace();
+			if (Debug.On) Log.e(TAG, "Request Err: " + e.getMessage());
 		} finally {
 			
 		}
@@ -65,6 +66,8 @@ public class Network {
 		String result = "";
 		
 		try {
+			if (Debug.On) Log.d(TAG, "getData: " + url + "?" + content);
+			
 			// 組合 Request URL
 			URL reqUrl = new URL(url + "?" + content);
 			
@@ -84,6 +87,7 @@ public class Network {
 			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			if (Debug.On) Log.e(TAG, "getData err: " + e.getMessage());
 		}
 		
 		// 將陣列轉成字串物件
@@ -94,8 +98,10 @@ public class Network {
 	// TODO: 解決無法下載檔案的問題 (建議改成 POST 方式)
 	public static void getFile(String url, String FileName) {
 		try {
+			if (Debug.On) Log.d(TAG, "getFile: " + url + FileName);
+			
 			// 組合 Request URL
-			URL reqUrl = new URL(url);
+			URL reqUrl = new URL(url + FileName);
 			
 			// 請求送出 Request 給 Server
 			HttpURLConnection conn = doRequest(reqUrl, "GET", "");
@@ -121,6 +127,7 @@ public class Network {
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			if (Debug.On) Log.e(TAG, "getFile err: " + e.getMessage());
 		}
 	}
 		

@@ -28,9 +28,13 @@ import android.widget.AdapterView.OnItemClickListener;
 public class BookDetail extends Activity {
 	private static final String TAG = "Danding_BookDetail";
 	
-	private String strBookList = "";	// 存放從 Server 下載的小說清單
+	private String strBookDetail = "";	// 存放從 Server 下載的小說清單
+	private String strImageFile = "";	// 小說的封面圖片檔名
+	private String strBookFile = "";	// 小說檔檔名
+	
 	private ListView lstBook;			// 顯示小說清單的控制項
 	private CustomAdapter adapter;
+	private Thread thread;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,34 +56,68 @@ public class BookDetail extends Activity {
     private ProgressDialog progress;
     
     // 下載小說清單後的 callback, 將小說動態加到清單中 
-    final Handler DownloadHandler = new Handler();
-    final Runnable DownloadCallback = new Runnable() {
+    final Handler BookDetailHandler = new Handler();
+    final Runnable BookDetailCallback = new Runnable() {
 
 		public void run() {
 			//progress.dismiss();
-			//edtAccount.setText(GetResult);
-			Toast.makeText(BookDetail.this, "Download Complete!", Toast.LENGTH_LONG).show();
-			Log.d(TAG, "Handler: " + strBookList);
+			//Toast.makeText(BookDetail.this, "Download Complete!", Toast.LENGTH_LONG).show();
+			Log.d(TAG, "Handler: " + strBookDetail);
 			
-			String[] aryBookList = strBookList.split(",");
+			String[] aryBookDetail = strBookDetail.split(",");
+			strImageFile = aryBookDetail[5];
 			
-			if (aryBookList.length > 0) {						
+			if (aryBookDetail.length > 0) {						
 				adapter.clear();
 				
 				try {
-					adapter.addSeparator("書本資料");
-					adapter.addListItem2(aryBookList[1], aryBookList[2]);
-					adapter.addLabItem("作者：" + aryBookList[3]);
-					adapter.addLabItem("出版商：" + aryBookList[4]);
-					adapter.addLabItem("小說封面圖案");
-					adapter.addImage(aryBookList[5]);
-					adapter.addButton("下載檔案");					
+					adapter.addSeparator(getString(R.string.book_detail_title));
+					adapter.addListItem2(aryBookDetail[1], aryBookDetail[2]);
+					adapter.addLabItem(getString(R.string.book_author) + "：" + aryBookDetail[3]);
+					adapter.addLabItem(getString(R.string.book_issue) + "：" + aryBookDetail[4]);
+					adapter.addLabItem(getString(R.string.book_image));
 					
-					lstBook.setAdapter(adapter);
+					if (strImageFile == "") {
+						adapter.addLabItem(getString(R.string.detail_noimage));
+						adapter.addButton(getString(R.string.detail_download));
+						lstBook.setAdapter(adapter);
+						return;
+					}
+					
+					//adapter.addImage(aryBookDetail[5]);
+					//adapter.addButton("下載檔案");					
+					
+					//lstBook.setAdapter(adapter);
+					
+					
+					// 下載圖片    		
+					thread = new Thread() {
+						public void run() {
+							try {
+								if (Debug.On) Log.d(TAG, "Sent GET request");
+								Network.getFile(
+										getString(R.string.url_host) + getString(R.string.url_image), 
+										strImageFile);
+
+								if (Debug.On) Log.d(TAG, "Callback to main loop");
+								DownloadImageHandler.post(DownloadImageCallback);
+							} catch (Exception e) {
+								Log.e(TAG, e.getMessage());
+								System.out.println(e.getMessage());
+							}
+						}
+					};
+					
+					try {
+						//progress.show();
+					    thread.start();
+					} catch (Exception e) {
+						Log.e(TAG, e.getMessage());
+						System.out.println(e.getMessage());
+					}
 				
 				} catch (Exception e) {
-					Log.e(TAG, "Count: " + aryBookList.length + "\n" + e.getMessage());
-					System.out.println("888888888: " + aryBookList.length + " * " + e.getMessage());
+					Log.e(TAG, "Count: " + aryBookDetail.length + "\n" + e.getMessage());
 				}
 				
 				lstBook.setOnItemClickListener(new OnItemClickListener() {
@@ -96,20 +134,56 @@ public class BookDetail extends Activity {
 		}
     	
     };    
+        
+    // 下載小說封面圖片到 SD Card 
+    final Handler DownloadImageHandler = new Handler();
+    final Runnable DownloadImageCallback = new Runnable() {
+
+		public void run() {
+			//progress.dismiss();
+			//Toast.makeText(BookDetail.this, "Download Complete!", Toast.LENGTH_LONG).show();
+			Log.d(TAG, "Handler: DownloadImage");
+			
+			try {
+				adapter.addImage(strImageFile);
+				adapter.addButton(getString(R.string.detail_download));
+				
+				lstBook.setAdapter(adapter);
+			
+			} catch (Exception e) {
+				Log.e(TAG, "ImageFileName: " + strImageFile + "\n" + e.getMessage());
+			}
+			
+			lstBook.setOnItemClickListener(new OnItemClickListener() {
+
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Toast.makeText(BookDetail.this, "第 " + position + " 個項目", Toast.LENGTH_SHORT).show();
+//						Intent intent = new Intent(BookList.this, BookDetail.class);
+//						startActivity(intent);
+				}
+				
+			});
+		}
+    	
+    };    
    
     // 從 Server 下載小說清單
 	private void getBookDetail(final CharSequence id) {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE); 
     	if (Network.haveNetworkConnection(cm)){
+    		
     		// 透過 Server 的 PHP 讀出 MySQL 的資料內容
-    		Thread thread = new Thread() {
+    		thread = new Thread() {
     			public void run() {
     				try {
     					if (Debug.On) Log.d(TAG, "Sent GET request");
-    					strBookList = Network.getData(getString(R.string.agent_url), "case=book_detail&b_id=" + id);
+    					strBookDetail = Network.getData(
+    							getString(R.string.url_host) + getString(R.string.url_agent), 
+    							"case=book_detail&b_id=" + id);
     					
     					if (Debug.On) Log.d(TAG, "Callback to main loop");
-		    			DownloadHandler.post(DownloadCallback);
+    					BookDetailHandler.post(BookDetailCallback);
     				} catch (Exception e) {
     					Log.e(TAG, e.getMessage());
     					System.out.println(e.getMessage());
@@ -124,6 +198,7 @@ public class BookDetail extends Activity {
     			Log.e(TAG, e.getMessage());
     			System.out.println(e.getMessage());
     		}
+    		
     	} else {
     		Toast.makeText(BookDetail.this, "請先連上網路!", Toast.LENGTH_LONG).show();
     	}
