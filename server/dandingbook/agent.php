@@ -50,9 +50,26 @@ switch ($m_case) {
 		$m_result = $m_result. $m_q[b_intro]. $CONST_SPLITER;	// 簡介
 		$m_result = $m_result. $m_q[b_author]. $CONST_SPLITER;	// 作者
 		$m_result = $m_result. $m_q[b_issue]. $CONST_SPLITER;	// 出版商
+		$m_result = $m_result. $m_q[b_path]. $CONST_SPLITER;	// 小說檔
 		$m_result = $m_result. $m_q[b_image];					// 小說封面圖案
 		
 		echo $m_result;
+		break;
+		
+	// --------------------------------------------------------------
+	// 書本下載
+	// 回傳值: 1
+	case "book_download":
+		$m_uid = $_GET["uid"];
+		$m_bkid = $_GET["bkid"];
+		
+		// 使用者下載小說的紀錄存到 user_book 資料表
+		$m_filed = Array("b_uid","b_bkid") ;
+		$m_value = Array($m_uid,$m_bkid) ;
+		DB_INSERT($GLOBALS[DB_USER_BOOK],$m_filed,$m_value); //新增
+		
+		echo "1";
+		
 		break;
 		
 	// --------------------------------------------------------------
@@ -82,7 +99,7 @@ switch ($m_case) {
 		
 	// --------------------------------------------------------------
 	// 使用者登入
-	// 回傳值:  1 - 成功,  0 - 失敗
+	// 回傳值:  >0 - 使用者編號,  0 - 失敗
 	case "user_login":
 		$m_account = $_GET["account"];
 		$m_pwd = $_GET["pwd"];
@@ -93,9 +110,11 @@ switch ($m_case) {
 		//   參考資料: http://blog.csdn.net/jesse621/article/details/7857333
 		$m_query = DB_QUERY("SELECT * FROM $GLOBALS[DB_USER] WHERE ".
 			"b_account = '$m_account' and b_pwd = '$m_pwd'");
+			
+		$m_result = mysql_fetch_array($m_query) ;
 		
 		// 回傳是否登入成功 (布林值)
-		echo (mysql_num_rows($m_query) > 0)? "1": "0";
+		echo (mysql_num_rows($m_query) > 0)? (string)$m_result["b_id"]: "0";
 			
 		break;
 }

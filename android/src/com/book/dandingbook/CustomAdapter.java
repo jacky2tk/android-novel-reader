@@ -131,7 +131,7 @@ public class CustomAdapter extends BaseAdapter {
 	}
 	
 	//加入Button方法
-	public void addButton(String ItemText) {
+	public void addButton(String ItemText, OnClickListener ClickLis) {
 		Log.d(TAG, "Enter addButton function --> " + ItemText);
 		View ItemView = mInflater.inflate(R.layout.custom_button, null);
 		
@@ -143,6 +143,7 @@ public class CustomAdapter extends BaseAdapter {
 		ItemList.put("ItemType", BUTTON_ITEM);
 		ItemList.put("VIEW", ItemView);
 		ItemList.put("ItemText", ItemText);
+		ItemList.put("ClickLis", ClickLis);
 		
 		TypeList.add(ItemList);
 	}
@@ -214,12 +215,7 @@ public class CustomAdapter extends BaseAdapter {
 				Log.d(TAG, "555");
 				Button button = (Button)convertView.findViewById(R.id.ItemButton);
 				button.setText((String)ItemInfo.get("ItemText"));
-				button.setOnClickListener(new OnClickListener() {
-					
-					public void onClick(View v) {
-						Log.d(TAG, "Downloading........");
-					}
-				});
+				button.setOnClickListener((OnClickListener)ItemInfo.get("ClickLis"));
 				break;	
 				
 		}

@@ -41,8 +41,7 @@ public class AddMem extends Activity {
         btnAbort.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent intent = new Intent(AddMem.this, Main.class);
-				startActivity(intent);
+				finish();
 			}
 		});
         
@@ -66,33 +65,37 @@ public class AddMem extends Activity {
     
     final Handler DownloadHandler = new Handler();
     final Runnable DownloadCallback = new Runnable() {
-		public void run() {
+	    public void run() {
 			//Toast.makeText(AddMem.this, "Download Complete!", Toast.LENGTH_LONG).show();
 			Log.d(TAG, "Handler: " + strAddMem);
 			
 			TextView account_warn = (TextView)findViewById(R.id.pwd_warn) ;
 			account_warn.setText("") ;
-			if(strAddMem.equals("0")){  //判斷帳號是否重複
+			
+			if(strAddMem.equals("0")) {		//判斷帳號是否重複
 				account_warn.setText(R.string.account_warn) ;
-			}
-			else{
+				
+			} else {
 				Button Dialog_btn = new Button(AddMem.this) ;
 				Dialog_btn.setText("確定") ;
 				final Dialog dialog = new Dialog(AddMem.this) ;
-				dialog.setTitle("您的帳號已註冊成功!") ;				
-				dialog.setContentView(Dialog_btn) ;//設置內容
-				dialog.show() ; //顯示
-				Dialog_btn.setOnClickListener(new OnClickListener() {//按下對話視窗上的按鈕來關閉Dialog視窗
+				dialog.setTitle(R.string.regist_ok);
+				dialog.setContentView(Dialog_btn);	//設置內容
+				dialog.show() ;	//顯示
+				
+				//按下對話視窗上的按鈕來關閉Dialog視窗
+				Dialog_btn.setOnClickListener(new OnClickListener() {
+					
 					public void onClick(View v) {
 						dialog.dismiss();
+						
 						//轉至首頁
-						Intent intent = new Intent(AddMem.this, Main.class);
-						startActivity(intent);
-					}
+				    	Intent intent = new Intent(AddMem.this, Main.class);
+				    	startActivity(intent);
+				    }
 				});
 			}
 		}
-    	
     };
     
 	//檢查是否連上網路

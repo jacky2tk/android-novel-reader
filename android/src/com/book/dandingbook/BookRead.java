@@ -25,25 +25,14 @@ import android.view.Window;
 import android.widget.TextView;
 
 public class BookRead extends Activity {
+	private static final String TAG = "Danding_BookRead";
+	
+	private MediaPlayer mPlayer; 
+	private TextView Lab_Content;
 	private static final int MENU_MUSIC = Menu.FIRST,
 										MENU_PLAY_MUSIC = Menu.FIRST +1 ,
 										MENU_STOP_MUSIC = Menu.FIRST +2 ;
-	MediaPlayer mPlayer; 
-	private static final String TAG = "Danding_BookRead";
-	private TextView Lab_Content;
-	 public String getSDPath(){
-     	StringBuilder SB = new StringBuilder() ;
-     	//取得外部裝置目錄的絕對路徑
-     	SB.append(android.os.Environment.getExternalStorageDirectory().getAbsolutePath());
-     	SB.append("/dandingbook/") ;
-     	
-     	File mydatapath = new File(SB.toString()) ;
-     	if(!mydatapath.exists()){ //如果找不到這個資料夾
-     		mydatapath.mkdir() ; //就新建一個資料夾
-     	}
-     	
-     	return SB.toString() ;
-     }
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +53,7 @@ public class BookRead extends Activity {
         	e.printStackTrace();
         }
         
-        String FILE_NAME = getSDPath().concat(getIntent().getStringExtra("SDcard")); //取得SD卡的路徑
+        String FILE_NAME = Network.getSDPath().concat(getIntent().getStringExtra("SDcard")); //取得SD卡的路徑
         Log.d(TAG, FILE_NAME);
         
         Lab_Content = (TextView)findViewById(R.id.txtBookRead);
@@ -110,21 +99,18 @@ public class BookRead extends Activity {
 
 	@Override  
 	protected void onResume() {  
-    	// TODO Auto-generated method stub            
     	super.onResume();    
     	mPlayer.start();   
     } 
 	
     @Override  
     protected void onPause() {  
-    	// TODO Auto-generated method stub            
     	super.onPause();   
     	mPlayer.pause();   
     } 
     
     @Override  
     protected void onDestroy() {    
-    	// TODO Auto-generated method stub       
     	super.onDestroy();       
     	mPlayer.release();   
     } 
@@ -140,7 +126,6 @@ public class BookRead extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch(item.getItemId()){
 			case MENU_STOP_MUSIC:
 				super.onPause();   

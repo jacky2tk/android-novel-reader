@@ -20,10 +20,12 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class OffReadList extends Activity {
-	 private static final String TAG = "Danding_OffReadList";
-	 public ArrayList<CharSequence> Namelist;
+	private static final String TAG = "Danding_OffReadList";
+	
+	public ArrayList<CharSequence> Namelist;
 	public ArrayList<CharSequence> IDlist;
 	public ArrayList<CharSequence> SDlist;
+	
 	//建立列舉, 方便以後調用
 	public enum BookSchema {
 		TABLE_NAME("off_book"), 
@@ -69,7 +71,7 @@ public class OffReadList extends Activity {
     
     //宣告DBConnection及SQLiteDatabase握柄
 	DBConnection helper;
-	SQLiteDatabase db;
+	public static SQLiteDatabase db;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,6 +127,7 @@ public class OffReadList extends Activity {
 			}
 		}) ;
   	}
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);

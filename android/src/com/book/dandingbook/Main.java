@@ -22,8 +22,10 @@ import android.widget.Toast;
 
 public class Main extends Activity {
 	private static final String TAG = "Danding_Main";
-	private String strMain = "";
+	
+	public static String strUID = "";
 	private String Message = "" ;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,11 +111,11 @@ public class Main extends Activity {
     final Runnable DownloadCallback = new Runnable() {
 		public void run() {
 			//Toast.makeText(AddMem.this, "Download Complete!", Toast.LENGTH_LONG).show();
-			Log.d(TAG, "Handler: " + strMain);
+			Log.d(TAG, "Handler: " + strUID);
 			
 			TextView login_warn = (TextView)findViewById(R.id.login_warn) ;
 			login_warn.setText("") ;
-			if(strMain.equals("0")){  //§PÂ_±b±K¬O§_¿é¤J¥¿½T
+			if(strUID.equals("0")){  //§PÂ_±b±K¬O§_¿é¤J¥¿½T
 				login_warn.setText(R.string.login_warn) ;
 			}
 			else{
@@ -132,7 +134,7 @@ public class Main extends Activity {
     				try {
     					
     					if (Debug.On) Log.d(TAG, "Sent GET request");
-    					strMain = Network.getData(
+    					strUID = Network.getData(
     							getString(R.string.url_host) + getString(R.string.url_agent), 
     							"case=user_login"+contents);
     					
