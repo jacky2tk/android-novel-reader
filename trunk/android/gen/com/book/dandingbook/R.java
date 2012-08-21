@@ -104,10 +104,13 @@ public final class R {
         public static final int btn_register=0x7f06000f;
         public static final int detail_download=0x7f060006;
         public static final int detail_noimage=0x7f060005;
+        public static final int detail_others=0x7f060021;
+        public static final int detail_read=0x7f060020;
         public static final int hello_world=0x7f060008;
         public static final int login_warn=0x7f06001d;
         public static final int menu_settings=0x7f060009;
         public static final int pwd_warn=0x7f06001b;
+        public static final int regist_ok=0x7f060022;
         public static final int title_activity_add_mem=0x7f060013;
         public static final int title_activity_book_list=0x7f060014;
         public static final int title_activity_book_read=0x7f060012;

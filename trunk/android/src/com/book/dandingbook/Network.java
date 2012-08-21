@@ -95,7 +95,6 @@ public class Network {
 	}
 	
 	// 下載檔案
-	// TODO: 解決無法下載檔案的問題 (建議改成 POST 方式)
 	public static void getFile(String url, String FileName) {
 		try {
 			if (Debug.On) Log.d(TAG, "getFile: " + url + FileName);
