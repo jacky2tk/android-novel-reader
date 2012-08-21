@@ -33,13 +33,13 @@ public class BookRead extends Activity {
 	private TextView Lab_Content;
 	 public String getSDPath(){
      	StringBuilder SB = new StringBuilder() ;
-     	//å–å¾—å¤–éƒ¨è£ç½®ç›®éŒ„çš„çµ•å°è·¯å¾‘
+     	//¨ú±o¥~³¡¸Ë¸m¥Ø¿ıªºµ´¹ï¸ô®|
      	SB.append(android.os.Environment.getExternalStorageDirectory().getAbsolutePath());
      	SB.append("/dandingbook/") ;
      	
      	File mydatapath = new File(SB.toString()) ;
-     	if(!mydatapath.exists()){ //å¦‚æœæ‰¾ä¸åˆ°é€™å€‹è³‡æ–™å¤¾
-     		mydatapath.mkdir() ; //å°±æ–°å»ºä¸€å€‹è³‡æ–™å¤¾
+     	if(!mydatapath.exists()){ //¦pªG§ä¤£¨ì³o­Ó¸ê®Æ§¨
+     		mydatapath.mkdir() ; //´N·s«Ø¤@­Ó¸ê®Æ§¨
      	}
      	
      	return SB.toString() ;
@@ -48,7 +48,7 @@ public class BookRead extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        //ç§»é™¤ Title bar
+        //²¾°£ Title bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.book_read);
         
@@ -64,7 +64,7 @@ public class BookRead extends Activity {
         	e.printStackTrace();
         }
         
-        String FILE_NAME = getSDPath().concat(getIntent().getStringExtra("SDcard")); //å–å¾—SDå¡çš„è·¯å¾‘
+        String FILE_NAME = getSDPath().concat(getIntent().getStringExtra("SDcard")); //¨ú±oSD¥dªº¸ô®|
         Log.d(TAG, FILE_NAME);
         
         Lab_Content = (TextView)findViewById(R.id.txtBookRead);
@@ -72,7 +72,7 @@ public class BookRead extends Activity {
         Lab_Content.setText(File_Txt) ;
         
 	}
-    //è®€å–æª”æ¡ˆï¼Œä¸¦åˆ¤æ–·æª”æ¡ˆç·¨ç¢¼ï¼Œä»¥å…¶ç·¨ç¢¼é¡¯ç¤º
+    //Åª¨úÀÉ®×¡A¨Ã§PÂ_ÀÉ®×½s½X¡A¥H¨ä½s½XÅã¥Ü
     public String FileReader_Code(String FilePath) {
         File file = new File(FilePath);
         BufferedReader reader;
@@ -85,11 +85,11 @@ public class BookRead extends Activity {
                 in.read(b);
                 in.reset();
                 Log.d(TAG, FilePath+"_"+b[0]+"_"+b[1]+"_"+b[2]);
-                //å–å­—ç¯€å‰ä¸‰ç¢¼åˆ¤æ–·ç·¨ç¢¼
-                if (b[0] == -17 && b[1] == -69 && b[2] == -65) { //æ¨™æº–UTF-8æ ¼å¼
+                //¨ú¦r¸`«e¤T½X§PÂ_½s½X
+                if (b[0] == -17 && b[1] == -69 && b[2] == -65) { //¼Ğ·ÇUTF-8®æ¦¡
                     reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
                         
-                }else if (b[0] == -25 && b[1] == -84 && b[2] == -84) { //UTF-8ç„¡BONæ ¼å¼
+                }else if (b[0] == -25 && b[1] == -84 && b[2] == -84) { //UTF-8µLBON®æ¦¡
                     reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
                     
                 }else {
@@ -132,9 +132,9 @@ public class BookRead extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.book_read, menu);
-        SubMenu subMenu = menu.addSubMenu(0,MENU_MUSIC,0,"èƒŒæ™¯éŸ³æ¨‚");
-        subMenu.add(0,MENU_PLAY_MUSIC,0,"æ’­æ”¾éŸ³æ¨‚");
-        subMenu.add(0,MENU_STOP_MUSIC,0,"åœæ­¢éŸ³æ¨‚");
+        SubMenu subMenu = menu.addSubMenu(0,MENU_MUSIC,0,"­I´º­µ¼Ö");
+        subMenu.add(0,MENU_PLAY_MUSIC,0,"¼½©ñ­µ¼Ö");
+        subMenu.add(0,MENU_STOP_MUSIC,0,"°±¤î­µ¼Ö");
         return true;
     }
 
