@@ -1,7 +1,7 @@
 <?php
 include("_func/config.inc.php");
-$m_case = $_GET['case'] ; //¨ú±o¶Ç¤J­Ècase
-$m_data = $_GET['data'] ;	//¨ú±o¨Ï¥ÎªÌ¿é¤J¸ê°T
+$m_case = $_GET['case'] ; //å–å¾—å‚³å…¥å€¼case
+$m_data = $_GET['data'] ;	//å–å¾—ä½¿ç”¨è€…è¼¸å…¥è³‡è¨Š
 
 mysql_query("SET NAMES 'utf8'"); 
 mysql_query("SET CHARACTER_SET_CLIENT=utf8"); 
@@ -9,12 +9,12 @@ mysql_query("SET CHARACTER_SET_RESULTS=utf8");
 
 switch ($m_case){
 	case "insert" :
-	//¨ú¥X³Ì¤jªºid­È
+	//å–å‡ºæœ€å¤§çš„idå€¼
 	$m_query = DB_QUERY("SELECT MAX(b_id) as max_id FROM $GLOBALS[DB_BOOK]");
 	$m_row = mysql_fetch_array($m_query) ;
-	$m_maxid = $m_row['max_id']+1 ;  //³Ì¤jid+1
+	$m_maxid = $m_row['max_id']+1 ;  //æœ€å¤§id+1
 	
-	//m_data¤º®e : ID,©m¦W,¦s¨ú¥N½X,«¬ºA
+	//m_dataå…§å®¹ : ID,å§“å,å­˜å–ä»£ç¢¼,åž‹æ…‹
 	$m_data = explode(",",$m_data) ;
 	$m_name = $m_data[0] ;
 	$m_intro = $m_data[1] ;
@@ -26,14 +26,14 @@ switch ($m_case){
 	$m_path_ext = substr($m_path,strrpos($m_path,".")) ;
 	$m_image_ext = substr($m_image,strrpos($m_image,".")) ;
 	
-	$m_path = "book_".$m_maxid.strtolower($m_path_ext) ;		//­«·sµ¹ÀÉ®×¸ô®|¦WºÙ
-	($m_image!="")?$m_image = "img_".$m_maxid.strtolower($m_image_ext):$m_image="" ;  //­«·sµ¹imgÀÉ¦W¡A¥ý§PÂ_¬O§_¦³­n¤W¶Ç¹Ï¤ù
+	$m_path = "book_".$m_maxid.strtolower($m_path_ext) ;		//é‡æ–°çµ¦æª”æ¡ˆè·¯å¾‘åç¨±
+	($m_image!="")?$m_image = "img_".$m_maxid.strtolower($m_image_ext):$m_image="" ;  //é‡æ–°çµ¦imgæª”åï¼Œå…ˆåˆ¤æ–·æ˜¯å¦æœ‰è¦ä¸Šå‚³åœ–ç‰‡
 	
 	
 	$m_filed = Array("b_name","b_intro","b_author","b_issue","b_path","b_image") ;
 	$m_value = Array($m_name,$m_intro,$m_author,$m_issue,$m_path,$m_image) ;
 	
-	DB_INSERT($GLOBALS["DB_BOOK"],$m_filed,$m_value); //·s¼W
+	DB_INSERT($GLOBALS["DB_BOOK"],$m_filed,$m_value); //æ–°å¢ž
 	
 	echo "OK,".$m_path.",".$m_image ;
 	exit ;
