@@ -98,7 +98,7 @@ public class Main extends Activity {
         btnBookRead.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent intent = new Intent(Main.this, BookRead.class);
+				Intent intent = new Intent(Main.this, OffReadList.class);
 				startActivity(intent);
 			}
 		});
