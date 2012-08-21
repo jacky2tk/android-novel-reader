@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>管理員登入</title>
+<style type="text/css">
+<!--
+.style10 {font-size: 15px; color: #FFFFFF; }
+.style15 {
+	font-size: 24px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+.style16 {color: #FFFFFF}
+.style12 {font-size: 14px; color: #333333; }
+-->
+</style>
+<script language="JavaScript" type="text/JavaScript" src="_func/_js/ajax.js"></script>
+<script>
+function jlogin(){
+	m_id = document.getElementById('account').value ;
+	m_pwd = document.getElementById('password').value ;
+	str = "" ;
+	if(m_id=="") str = "帳號" ;
+	if(m_pwd=="") str = str + " 密碼" ;
+	if(str!=""){
+		alert(str+" 欄位不得為空白喔!") ;
+	}
+	else{
+		m_data = m_id+","+m_pwd ;
+		m_return = jajax("sql_ajax.php?case=login&data="+m_data) ;
+		if(m_return){
+			location.href="all_show.php" ;
+		}
+		else{
+			alert("您輸入的帳密有誤，請重新輸入") ;
+		}
+	}
+	
+}
+</script>
+</head>
+
+<body>
+<form id="form1" name="form1" method="post" action="">
+  <table width="282" height="127" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" bgcolor="#999999">
+    <tr>
+      <td height="38" colspan="2" align="center"><span class="style15">管理員登入</span></td>
+    </tr>
+    <tr>
+      <td width="76" height="31" align="right"><span class="style10">帳號:&nbsp;</span></td>
+      <td width="236">&nbsp;
+      <input type="text" name="account" id="account" /></td>
+    </tr>
+    <tr>
+      <td height="29" align="right"><span class="style10">密碼:&nbsp;</span></td>
+      <td>&nbsp;
+      <input type="password" name="password" id="password" /></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><input name="button" type="button" class="style12" id="button" onclick="javascript:jlogin();" value="登入" /> 
+      &nbsp;&nbsp;
+        <input type="reset" name="button2" id="button2" class="style12" value="取消" /></td>
+    </tr>
+  </table>
+  <p align="center" class="style16">	root &nbsp;&nbsp;&nbsp;1</p>
+</form>
+<p>&nbsp;</p>
+</body>
+
+</html>
