@@ -13,6 +13,8 @@
 }
 .style16 {color: #FFFFFF}
 .style12 {font-size: 14px; color: #333333; }
+.style13 {font-size: 17px; color: #333333; }
+.style18 {font-size: 15px; color: #FFFFFF; font-weight: bold; }
 -->
 </style>
 <script language="JavaScript" type="text/JavaScript" src="_func/_js/ajax.js"></script>
@@ -43,27 +45,26 @@ function jlogin(){
 
 <body>
 <br>
-<center><img src="title-logo1.png" /></center><br>
-<center><img src="logo_s.png" /></center>
+<center><img src="title-logo1.png" width="450" /></center>
 <form id="form1" name="form1" method="post" action="">
-  <table width="282" height="127" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" bgcolor="#999999">
+  <table width="450" height="127" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" bgcolor="#EF6D0F">
     <tr>
       <td height="38" colspan="2" align="center"><span class="style15">管理員登入</span></td>
     </tr>
     <tr>
-      <td width="76" height="31" align="right"><span class="style10">帳號:&nbsp;</span></td>
-      <td width="236">&nbsp;
+      <td width="172" height="31" align="right"><span class="style18">帳號:&nbsp;</span></td>
+      <td width="278">&nbsp;
       <input type="text" name="account" id="account" /></td>
     </tr>
     <tr>
-      <td height="29" align="right"><span class="style10">密碼:&nbsp;</span></td>
+      <td height="29" align="right"><span class="style10"><strong>密碼:</strong>&nbsp;</span></td>
       <td>&nbsp;
       <input type="password" name="password" id="password" /></td>
     </tr>
     <tr>
-      <td colspan="2" align="center"><input name="button" type="button" class="style12" id="button" onclick="javascript:jlogin();" value="登入" /> 
+      <td colspan="2" align="center"><input name="button" type="button" class="style13" id="button" onclick="javascript:jlogin();" value="登入" /> 
       &nbsp;&nbsp;
-        <input type="reset" name="button2" id="button2" class="style12" value="取消" /></td>
+        <input type="reset" name="button2" id="button2" class="style13" value="取消" /></td>
     </tr>
   </table>
   <p align="center" class="style16">	root &nbsp;&nbsp;&nbsp;1</p>
