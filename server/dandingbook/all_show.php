@@ -38,6 +38,7 @@ mysql_query("SET CHARACTER_SET_RESULTS=utf8");
 	font-weight: bold;
 	color: #000000;
 }
+.style18 {font-size: 30px}
 -->
 </style>
 <script language="JavaScript" type="text/JavaScript" src="_func/_js/ajax.js"></script>
@@ -87,25 +88,29 @@ function jlogout(){
 		location.href="login.html" ;
 	}
 }
+function jselect_change(){
+	m_select = document.getElementById('select1').value ;
+	document.getElementById('sel_hidden').value = m_select ;
+	document.form2.submit() ;
+	
+}
 </script>
 </head>
 
 <body>
-<p align="center" class="style10">Danding Book 後台管理</p>
+<h1 align="center" class="style10 style18">Danding Book 後台管理</h1>
 <hr />
 <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td align="center"><span class="style17" onclick="jdiv(1);">書籍上傳系統</span></td>
     <td align="center"><span class="style17" onclick="jdiv(2);">所有書籍列表</span></td>
-    <td align="center"><span class="style17" onclick="jdiv(3);">使用者下載列表</span></td>
+    <td align="center"><span class="style17" onclick="jdiv(3);">會員下載列表</span></td>
     <td align="center"><span class="style17" onclick="jlogout();">登出</span></td>
   </tr>
 </table>
 <hr />
 <br />
-<div class="style8" id="div_0" style="display:block">
-  <div align="center" class="style9">請由上方列表選擇您要的工作</div>
-</div>
+
 
 <div id="div_1" style="display:none" align="center">
 <form action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
@@ -226,9 +231,9 @@ if($_POST['hidden_up']!=""){
 </div>
 <div id="div_2" style="display:none" align="center">
 <?php
-$m_query = DB_QUERY("SELECT * FROM $GLOBALS[DB_BOOK]");
+$m_book = DB_QUERY("SELECT * FROM $GLOBALS[DB_BOOK]");
 ?>
-<h1 class="style1 style4">所有書籍列表</h1>
+<h1 class="style4 style1"><strong>所有書籍列表</strong></h1>
 <table width="100%" height="69" border="1" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF">
   <tr>
     <td width="6%" height="33" align="center" bgcolor="#827460"><span class="style11">編號</span></td>
@@ -240,46 +245,88 @@ $m_query = DB_QUERY("SELECT * FROM $GLOBALS[DB_BOOK]");
     <td width="35%" align="center" bgcolor="#827460"><span class="style11">簡介</span></td>
   </tr>
 <?php
-$m_i = 0 ;
-while($m_row=mysql_fetch_array($m_query)){
-	$m_i++ ;
+$m_k = 0 ;
+while($m_book_row=mysql_fetch_array($m_book)){
+	$m_k++ ;
 	$m_bg = "#E0E0E0" ;
-	if($m_i%2==0){
+	if($m_k%2==0){
 		$m_bg = "#D8D3CB" ;
 	}
 ?>
   
   <tr bgcolor=<?php echo $m_bg ; ?> >
-    <td height="33"><span class="style16">&nbsp;<?php echo $m_row['b_id'] ; ?></span></td>
-    <td><span class="style16">&nbsp;<?php echo $m_row['b_name'] ; ?></span></td>
-    <td><span class="style16">&nbsp;<?php echo $m_row['b_path'] ; ?></span></td>
-    <td><span class="style16">&nbsp;<?php echo $m_row['b_image'] ; ?></span></td>
-    <td><span class="style16">&nbsp;<?php echo $m_row['b_author'] ; ?></span></td>
-    <td><span class="style16">&nbsp;<?php echo $m_row['b_issue'] ; ?></span></td>
-    <td><span class="style16">&nbsp;<?php echo $m_row['b_intro'] ; ?></span></td>
+    <td height="33"><span class="style16">&nbsp;<?php echo $m_book_row['b_id'] ; ?></span></td>
+    <td><span class="style16">&nbsp;<?php echo $m_book_row['b_name'] ; ?></span></td>
+    <td><span class="style16">&nbsp;<?php echo $m_book_row['b_path'] ; ?></span></td>
+    <td><span class="style16">&nbsp;<?php echo $m_book_row['b_image'] ; ?></span></td>
+    <td><span class="style16">&nbsp;<?php echo $m_book_row['b_author'] ; ?></span></td>
+    <td><span class="style16">&nbsp;<?php echo $m_book_row['b_issue'] ; ?></span></td>
+    <td><span class="style16">&nbsp;<?php echo $m_book_row['b_intro'] ; ?></span></td>
   </tr>
 <?php
 }
 ?>
 </table>
 </div>
-
-<div id="div_3" style="display:none" align="center">
 <form id="form2" name="form2" method="post" action="">
-<h1 class="style1 style4">使用者下載列表</h1>
+<?php
+$m_where = "" ;
+$m_div = "none" ;
+$m_div0 = "block" ;
+if($_POST['sel_hidden']!=""){
+	if($_POST['sel_hidden']!="0"){
+		$m_where = "WHERE B.b_id=".$_POST['select1'] ;
+	}
+	$m_div = "block" ;
+	$m_div0 = "none" ;
+}
+?>
+<div id="div_3" style="display:<?php echo $m_div ;?>" align="center">
+<?php
+$m_user = DB_QUERY("SELECT * FROM $GLOBALS[DB_USER]");
+$m_all_std = "selected='selected'" ;
+while($m_user_row=mysql_fetch_array($m_user)){
+	$m_selected = "" ;
+	if($m_user_row['b_id']==$_POST['sel_hidden']){
+		$m_selected = "selected='selected'" ;
+		$m_all_std = "" ;
+	}
+	$m_option = $m_option."<option ".$m_selected." value='".$m_user_row['b_id']."'>".$m_user_row['b_name']."</option>" ;
+}
+?>
+
+<h1 class="style4 style1"><strong>會員下載列表</strong></h1>
+  <table width="50%" border="0">
+    <tr>
+      <td align="right">選擇會員:
+        <select name="select1" id="select1" onchange="jselect_change();">
+          <option value="0" <?php echo $m_all_std ;?> >全部顯示</option>
+          <?php echo $m_option ; ?>
+          </select>
+        <input type="hidden" name="sel_hidden" id="sel_hidden" />
+      </td>
+    </tr>
+  </table>
   <table width="50%" border="0" cellpadding="0" cellspacing="0"  bordercolor="#FFFFFF">
     <tr bgcolor="#827460">
-      <td width="10%" height="24" align="center"><span class="style11">編號</span></td>
+      <td width="10%" height="30" align="center"><span class="style11">編號</span></td>
       <td width="24%" align="center"><span class="style11">會員姓名</span></td>
       <td width="27%" align="center"><span class="style11">會員帳號</span></td>
       <td width="39%" align="center"><span class="style11">已下載書名</span></td>
     </tr>
 <?php
+
 $m_i = 0 ;
 $m_query = DB_QUERY("SELECT A.b_uid AS uid_1 ,B.b_name AS user_name ,B.b_account AS user_id 
 								FROM $GLOBALS[DB_USER_BOOK] A 
 									INNER JOIN $GLOBALS[DB_USER] B ON B.b_id = A.b_uid 
+									".$m_where."
 									GROUP BY b_uid");
+	
+$m_num = mysql_num_rows($m_query) ;
+if($m_num==0){
+	echo "<tr><td colspan='4' align='center'><span class='style9'><b><br>此會員無資料</b></span></td></tr>" ;
+}
 while($m_row=mysql_fetch_array($m_query)){
 	$m_i++ ;
 	$m_query2 = DB_QUERY("SELECT A.b_id AS id ,A.b_uid AS uid ,C.b_name AS book_name
@@ -288,7 +335,6 @@ while($m_row=mysql_fetch_array($m_query)){
 	INNER JOIN $GLOBALS[DB_BOOK] C ON A.b_bkid = C.b_id
 	WHERE A.b_uid = ".$m_row['uid_1']);
 	$m_j = 0 ;
-	$m_num = mysql_num_rows($m_query2) ;
 	while($m_row2=mysql_fetch_array($m_query2)){
 		$m_j++ ;
 		$m_bg = "#E0E0E0" ;
@@ -320,9 +366,13 @@ while($m_row=mysql_fetch_array($m_query)){
 }
 ?>
   </table>
-</form>
+
 </div>
 
+<div class="style8" id="div_0" style="display:<?php echo $m_div0; ?>">
+  <div align="center" class="style9">請由上方列表選擇您要的工作</div>
+</div>
+</form>
 </body>
 
 
