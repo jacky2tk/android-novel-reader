@@ -1,4 +1,50 @@
 <?php
+function uimage_reduce($lc_src,$lc_dst,$ln_width=0,$ln_height=0){
+	/* $lc_src 圖片來源
+	   $lc_dst 壓縮後的圖片存放路徑
+	   $ln_width 設定之寬度
+	   $ln_height 設定之高度*/
+	$src = imagecreatefromjpeg($lc_src);
+	// 取得來源圖片長寬
+	$src_w = imagesx($src);
+	$src_h = imagesy($src);
+	if($ln_width<>0&&$ln_height==0){
+		$thumb_w = $ln_width;
+		$thumb_h = intval($src_h / $src_w * $ln_width);
+	}
+	else if($ln_width==0&&$ln_height<>0){
+		$thumb_h = $ln_height;
+		$thumb_w = intval($src_w / $src_h * $ln_height);
+	}
+	else if($ln_width<>0&&$ln_height<>0){
+		$thumb_w = $ln_width;
+		$thumb_h = $ln_height;
+	}
+	else{
+		if($src_w>$src_h){
+			$thumb_w = 200;
+			$thumb_h = intval($src_h / $src_w * 200);
+		}
+		else{
+			$thumb_h = 200;
+			$thumb_w = intval($src_w / $src_h * 200);
+		}
+	}
+	// 建立縮圖
+	$thumb = imagecreatetruecolor($thumb_w, $thumb_h);
+	// 開始縮圖
+	$m_pled = imagecopyresampled($thumb, $src, 0, 0, 0, 0, $thumb_w, $thumb_h, $src_w, $src_h);
+	// 儲存縮圖到指定 thumb 目錄
+	$m_jpeg = imagejpeg($thumb, $lc_dst);
+	// 複製上傳圖片到指定 images 目錄
+	if(!($m_pled)||!($m_jpeg)){
+		return false ;
+	}
+	else{
+		return true ; 
+	}
+//	copy($lc_src,$lc_dst);
+}
 #轉換網址
 function GoUrl($Url){
     echo "<script>\n\rdocument.location=\"$Url\";\n\r</script>\n\r";

@@ -17,12 +17,6 @@ mysql_query("SET CHARACTER_SET_RESULTS=utf8");
 <title>無標題文件</title>
 <style type="text/css">
 <!--
-.style1 {color: #333333}
-.style3 {font-size: 14px}
-.style4 {
-	font-size: 24px
-}
-.style5 {font-size: 12px}
 
 
 
@@ -30,7 +24,6 @@ mysql_query("SET CHARACTER_SET_RESULTS=utf8");
 .style7 {font-size: 15px; color: #333333; }
 .style11 {color: #FFFFFF; font-size: 17px; font-weight: bold; }
 .style16 {font-size: 15px; color: #404040; }
-.style17 {font-size: 17px; font-weight: bold; color: #333333; cursor:pointer ; }
 .style8 {color: #333333; font-weight: bold; }
 .style9 {color: #990000}
 .style10 {
@@ -38,7 +31,22 @@ mysql_query("SET CHARACTER_SET_RESULTS=utf8");
 	font-weight: bold;
 	color: #000000;
 }
-.style18 {font-size: 30px}
+.style18 {
+	font-size: 30px;
+	color: #D85110;
+}
+.style20 {
+	font-size: 24px;
+	color: #804000;
+	font-family: "Courier New", Courier, monospace;
+}
+.style27 {font-size: 15px; color: #804000; }
+.style29 {
+	font-size: 12px;
+	color: #666666;
+}
+.style31 {font-size: 17px; font-weight: bold; color: #5C2D0A; cursor: pointer; }
+.style33 {color: #990000; font-weight: bold; }
 -->
 </style>
 <script language="JavaScript" type="text/JavaScript" src="_func/_js/ajax.js"></script>
@@ -83,9 +91,11 @@ function jdiv(m_divid){
 	document.getElementById('div_'+m_divid).style.display = "block" ;
 }
 function jlogout(){
-	m_return = jajax("sql_ajax.php?case=logout") ;
-	if(m_return){
-		location.href="login.html" ;
+	if(confirm("您確定要登出嗎?")){
+		m_return = jajax("sql_ajax.php?case=logout") ;
+		if(m_return){
+			location.href="login.html" ;
+		}
 	}
 }
 function jselect_change(){
@@ -102,10 +112,10 @@ function jselect_change(){
 <hr />
 <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td align="center"><span class="style17" onclick="jdiv(1);">書籍上傳系統</span></td>
-    <td align="center"><span class="style17" onclick="jdiv(2);">所有書籍列表</span></td>
-    <td align="center"><span class="style17" onclick="jdiv(3);">會員下載列表</span></td>
-    <td align="center"><span class="style17" onclick="jlogout();">登出</span></td>
+    <td align="center"><span class="style31" onclick="jdiv(1);">書籍上傳系統</span></td>
+    <td align="center"><span class="style31" onclick="jdiv(2);">書籍列表</span></td>
+    <td align="center"><span class="style31" onclick="jdiv(3);">會員下載列表</span></td>
+    <td align="center"><span class="style31" onclick="jlogout();">登出</span></td>
   </tr>
 </table>
 <hr />
@@ -114,66 +124,65 @@ function jselect_change(){
 
 <div id="div_1" style="display:none" align="center">
 <form action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
-  <table width="682" height="248" border="0" cellpadding="0" cellspacing="0">
+  <table width="682" height="269" border="0" cellpadding="0" cellspacing="0">
     <tr>
       <td colspan="3" align="center">
-        <h1 class="style1 style4">書籍檔案上傳系統</h1>    </td>
+        <h1 class="style20">書籍檔案上傳系統</h1>    </td>
     </tr>
     <tr>
-      <td width="169" align="right"><span class="style3">書名&nbsp;</span></td>
+      <td width="169" align="right" valign="middle"><span class="style27">書名&nbsp;</span></td>
       <td colspan="2">&nbsp;
       <input name="b_name" type="text" id="b_name" size="20" /></td>
     </tr>
     <tr>
-      <td align="right"><span class="style3">作者&nbsp;</span></td>
+      <td align="right" valign="middle"><span class="style27">作者&nbsp;</span></td>
       <td colspan="2"><label>
         &nbsp;
         <input name="b_author" type="text" id="b_author" size="20" />
       </label> </td>
     </tr>
     <tr>
-      <td align="right"><span class="style3">出版社&nbsp;</span></td>
+      <td align="right" valign="middle"><span class="style27">出版社&nbsp;</span></td>
       <td colspan="2"><label>
         &nbsp;
         <input name="b_issue" type="text" id="b_issue" size="20" />
       </label></td>
     </tr>
     <tr>
-      <td align="right"><span class="style3">簡介&nbsp;</span></td>
+      <td align="right" valign="middle"><span class="style27">簡介&nbsp;</span></td>
       <td colspan="2"><label>
         &nbsp;
         <input name="b_intro" type="text" id="b_intro" size="65" maxlength="60" />
       </label></td>
     </tr>
     <tr>
-      <td height="34" align="right"><span class="style3">資料檔案路徑&nbsp;</span></td>
+      <td height="34" align="right" valign="middle"><span class="style27">資料檔案路徑&nbsp;</span></td>
       <td><label>
       &nbsp;
       <input type="file" name="b_path" id="b_path"/>
       </label></td>
-      <td><span class="style5">*注:格式限制.txt檔案</span></td>
+      <td valign="middle"><span class="style29 style6">*注:格式限制.txt檔案</span></td>
     </tr>
     <tr>
-      <td align="right" valign="top"><span class="style3">圖片檔案路徑&nbsp;</span></td>
-      <td width="295" valign="top"><label>
+      <td align="right" valign="middle"><span class="style27">圖片檔案路徑&nbsp;</span></td>
+      <td width="281" valign="middle"><label>
       &nbsp;
       <input type="file" name="b_image" id="b_image" />
       <!--onchange="javascript:jimgshow('myimg',this.value);"-->
       </label></td>
-      <td width="218" valign="top"><input name="myimg" type="image" id="myimg" src="C|/thumbnailCAX3K5WQ.jpg" height="200" style="display:none" />
-        <span class="style5">*注: 圖片格式，限制於GIF、JPG</span></td>
-      <!-- style="display:none"-->
+      <td width="232" rowspan="2" align="left" valign="top"><span class="style29 style6">*注: 圖片格式，限制於GIF、JPG<br />
+        　　圖片將自動壓縮至　寬200</span>        </td>
     </tr>
     
     <tr>
-      <td>&nbsp;</td>
-      <td colspan="2"><label>
-        <input type="button" name="button3" id="button3" value="　上傳　" onclick="javascript:jbookup();" />
+      <td height="54">&nbsp;</td>
+      <td valign="bottom"><label>
+        <input name="button3" type="button" class="style7" id="button3" onclick="javascript:jbookup();" value="　上傳　" />
        　　　 
-       <input type="reset" name="button4" id="button4" value="　重置　" />
+       <input name="button4" type="reset" class="style7" id="button4" value="　重置　" />
        <input type="hidden" name="hidden_up" id="hidden_up" />
       </label></td>
-    </tr>
+      </tr>
   </table>
 </form>
 <?php
@@ -220,7 +229,8 @@ if($_POST['hidden_up']!=""){
 					unlink($m_file_name) ;
 				}
 				else{
-					copy($_FILES['b_image']['tmp_name'] , $m_file_name);
+					uimage_reduce($_FILES['b_image']['tmp_name'],$m_file_name,200,0);
+					//copy($_FILES['b_image']['tmp_name'] , $m_file_name);
 				}
 			}
 		}
@@ -233,35 +243,35 @@ if($_POST['hidden_up']!=""){
 <?php
 $m_book = DB_QUERY("SELECT * FROM $GLOBALS[DB_BOOK]");
 ?>
-<h1 class="style4 style1"><strong>所有書籍列表</strong></h1>
-<table width="100%" height="69" border="1" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF">
+<h1 class="style20">書 籍 列 表</h1>
+<table width="90%" height="69" border="1" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF">
   <tr>
-    <td width="6%" height="33" align="center" bgcolor="#827460"><span class="style11">編號</span></td>
-    <td width="18%" align="center" bgcolor="#827460"><span class="style11">書名</span></td>
-    <td width="11%" align="center" bgcolor="#827460"><span class="style11">資料檔名</span></td>
-    <td width="11%" align="center" bgcolor="#827460"><span class="style11">圖片檔名</span></td>
-    <td width="9%" align="center" bgcolor="#827460"><span class="style11">作者</span></td>
-    <td width="10%" align="center" bgcolor="#827460"><span class="style11">出版社</span></td>
-    <td width="35%" align="center" bgcolor="#827460"><span class="style11">簡介</span></td>
+    <td width="5%" height="33" align="center" bgcolor="#B54E02"><span class="style11">編號</span></td>
+    <td width="19%" align="center" bgcolor="#B54E02"><span class="style11">書名</span></td>
+    <td width="11%" align="center" bgcolor="#B54E02"><span class="style11">資料檔名</span></td>
+    <td width="11%" align="center" bgcolor="#B54E02"><span class="style11">圖片檔名</span></td>
+    <td width="9%" align="center" bgcolor="#B54E02"><span class="style11">作者</span></td>
+    <td width="10%" align="center" bgcolor="#B54E02"><span class="style11">出版社</span></td>
+    <td width="35%" align="center" bgcolor="#B54E02"><span class="style11">簡介</span></td>
   </tr>
 <?php
 $m_k = 0 ;
 while($m_book_row=mysql_fetch_array($m_book)){
 	$m_k++ ;
-	$m_bg = "#E0E0E0" ;
+	$m_bg = "#FFDBCA" ;
 	if($m_k%2==0){
-		$m_bg = "#D8D3CB" ;
+		$m_bg = "#FEEDC9" ;
 	}
 ?>
   
   <tr bgcolor=<?php echo $m_bg ; ?> >
-    <td height="33"><span class="style16">&nbsp;<?php echo $m_book_row['b_id'] ; ?></span></td>
+    <td height="33" align="center"><span class="style16">&nbsp;<?php echo $m_book_row['b_id'] ; ?></span></td>
     <td><span class="style16">&nbsp;<?php echo $m_book_row['b_name'] ; ?></span></td>
     <td><span class="style16">&nbsp;<?php echo $m_book_row['b_path'] ; ?></span></td>
     <td><span class="style16">&nbsp;<?php echo $m_book_row['b_image'] ; ?></span></td>
     <td><span class="style16">&nbsp;<?php echo $m_book_row['b_author'] ; ?></span></td>
     <td><span class="style16">&nbsp;<?php echo $m_book_row['b_issue'] ; ?></span></td>
-    <td><span class="style16">&nbsp;<?php echo $m_book_row['b_intro'] ; ?></span></td>
+    <td bgcolor="<?php echo $m_bg ; ?>"><span class="style16">&nbsp;<?php echo $m_book_row['b_intro'] ; ?></span></td>
   </tr>
 <?php
 }
@@ -295,20 +305,19 @@ while($m_user_row=mysql_fetch_array($m_user)){
 }
 ?>
 
-<h1 class="style4 style1"><strong>會員下載列表</strong></h1>
+<h1 class="style20"><strong>會員下載列表</strong></h1>
   <table width="50%" border="0">
     <tr>
-      <td align="right">選擇會員:
+      <td align="right"><span class="style33">選擇會員:</span>
         <select name="select1" id="select1" onchange="jselect_change();">
           <option value="0" <?php echo $m_all_std ;?> >全部顯示</option>
           <?php echo $m_option ; ?>
           </select>
-        <input type="hidden" name="sel_hidden" id="sel_hidden" />
-      </td>
+        <input type="hidden" name="sel_hidden" id="sel_hidden" />      </td>
     </tr>
   </table>
   <table width="50%" border="0" cellpadding="0" cellspacing="0"  bordercolor="#FFFFFF">
-    <tr bgcolor="#827460">
+    <tr bgcolor="#B54E02">
       <td width="10%" height="30" align="center"><span class="style11">編號</span></td>
       <td width="24%" align="center"><span class="style11">會員姓名</span></td>
       <td width="27%" align="center"><span class="style11">會員帳號</span></td>
@@ -337,15 +346,15 @@ while($m_row=mysql_fetch_array($m_query)){
 	$m_j = 0 ;
 	while($m_row2=mysql_fetch_array($m_query2)){
 		$m_j++ ;
-		$m_bg = "#E0E0E0" ;
+		$m_bg = "#FFDBCA" ;
 		if($m_j%2==0){
-			$m_bg = "#D8D3CB" ;
+			$m_bg = "#FEEDC9" ;
 		}
 ?>
         <tr>
-          <td align="center" height="38" bgcolor="#E0E0E0" class="style6" id="<?php echo "td0_".$m_i."_".$m_j?>"><span class="style7">&nbsp;</span></td>
-          <td align="center" bgcolor="#E0E0E0" id="<?php echo "td1_".$m_i."_".$m_j?>"><span class="style7">&nbsp;</span></td>
-          <td align="center" bgcolor="#E0E0E0" id="<?php echo "td2_".$m_i."_".$m_j?>"><span class="style7">&nbsp;</span></td>
+          <td align="center" height="38" bgcolor="#FFDBCA" class="style6" id="<?php echo "td0_".$m_i."_".$m_j?>"><span class="style7">&nbsp;</span></td>
+          <td align="center" bgcolor="#FFDBCA" id="<?php echo "td1_".$m_i."_".$m_j?>"><span class="style7">&nbsp;</span></td>
+          <td align="center" bgcolor="#FFDBCA" id="<?php echo "td2_".$m_i."_".$m_j?>"><span class="style7">&nbsp;</span></td>
           <td bgcolor=<?php echo $m_bg ; ?>>
             <table width="100%" border="0" cellspacing="0" bordercolor="#FFFFFF">
               <tr>
