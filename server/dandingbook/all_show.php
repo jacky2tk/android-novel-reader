@@ -47,6 +47,18 @@ mysql_query("SET CHARACTER_SET_RESULTS=utf8");
 }
 .style31 {font-size: 17px; font-weight: bold; color: #5C2D0A; cursor: pointer; }
 .style33 {color: #990000; font-weight: bold; }
+.style35 {
+	font-size: 17px;
+	font-weight: bold;
+	color: #999999;
+	cursor: pointer;
+}
+.style37 {
+	font-size: 17px;
+	font-weight: bold;
+	color: #666666;
+	cursor: pointer;
+}
 -->
 </style>
 <script language="JavaScript" type="text/JavaScript" src="_func/_js/ajax.js"></script>
@@ -87,8 +99,10 @@ function jbookup(){
 function jdiv(m_divid){
 	for(var m_i=0;m_i<=3;m_i++){
 		document.getElementById('div_'+m_i).style.display = "none" ;
+		document.getElementById('myspan_'+m_i).className = "style35" ;
 	}
 	document.getElementById('div_'+m_divid).style.display = "block" ;
+	document.getElementById('myspan_'+m_divid).className = "style31" ;
 }
 function jlogout(){
 	if(confirm("您確定要登出嗎?")){
@@ -112,10 +126,11 @@ function jselect_change(){
 <hr />
 <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td align="center"><span class="style31" onclick="jdiv(1);">書籍上傳系統</span></td>
-    <td align="center"><span class="style31" onclick="jdiv(2);">書籍列表</span></td>
-    <td align="center"><span class="style31" onclick="jdiv(3);">會員下載列表</span></td>
-    <td align="center"><span class="style31" onclick="jlogout();">登出</span></td>
+  	<span id="myspan_0" class="style31"></span>
+    <td align="center"><span id="myspan_1" class="style35" onclick="jdiv(1);">書籍上傳系統</span></td>
+    <td align="center"><span id="myspan_2" class="style35" onclick="jdiv(2);">書籍列表</span></td>
+    <td align="center"><span id="myspan_3" class="style35" onclick="jdiv(3);">會員下載列表</span></td>
+    <td align="center"><span id="myspan_4" class="style35" onclick="jlogout();">登出</span></td>
   </tr>
 </table>
 <hr />
@@ -130,7 +145,7 @@ function jselect_change(){
         <h1 class="style20">書籍檔案上傳系統</h1>    </td>
     </tr>
     <tr>
-      <td width="169" align="right" valign="middle"><span class="style27">書名&nbsp;</span></td>
+      <td width="169" align="right" valign="middle"><span class="style27">*書名&nbsp;</span></td>
       <td colspan="2">&nbsp;
       <input name="b_name" type="text" id="b_name" size="20" /></td>
     </tr>
@@ -156,7 +171,7 @@ function jselect_change(){
       </label></td>
     </tr>
     <tr>
-      <td height="34" align="right" valign="middle"><span class="style27">資料檔案路徑&nbsp;</span></td>
+      <td height="34" align="right" valign="middle"><span class="style27">*資料檔案路徑&nbsp;</span></td>
       <td><label>
       &nbsp;
       <input type="file" name="b_path" id="b_path"/>
