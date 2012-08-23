@@ -1,5 +1,6 @@
 package com.book.dandingbook;
 
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Notification;
@@ -22,10 +23,16 @@ import android.widget.Toast;
 
 public class Main extends Activity {
 	private static final String TAG = "Danding_Main";
+	private static NotificationManager barManager = null;
+	private static Notification barMsg = null ;
 	
 	public static String strUID = "";
 	private String Message = "" ;
-	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		barManager.cancel(0);
+	}
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,21 +40,6 @@ public class Main extends Activity {
         // 移除 Title bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-        
-        // 將程式註冊到通知列
-        NotificationManager barManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Notification barMsg = new Notification(
-        		R.drawable.ic_launcher,
-        		getString(R.string.app_name),
-        		System.currentTimeMillis());
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, 
-        		new Intent(this,Main.class), 
-        		PendingIntent.FLAG_UPDATE_CURRENT);
-
-        barMsg.setLatestEventInfo(this, "我是通知訊息", "我是通知內容", contentIntent);
-        barManager.cancelAll();
-        barManager.notify(0,barMsg);
-        
         findViews();		// 取得所有控制項
 		setListeners();		// 設定所有按鈕 Listener
 		
@@ -59,6 +51,26 @@ public class Main extends Activity {
         
     }
 	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		// 將程式註冊到通知列
+        barManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Intent it_bar = new Intent(Main.this, Main.class);
+        it_bar.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        barMsg = new Notification(
+        		R.drawable.ic_launcher,
+        		getString(R.string.app_name),
+        		System.currentTimeMillis());
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, 
+        		it_bar, 
+        		PendingIntent.FLAG_UPDATE_CURRENT);
+
+        barMsg.setLatestEventInfo(this, "淡定書城", "Danding Book", contentIntent);
+        barManager.cancelAll();
+        barManager.notify(0,barMsg);
+	}
+
 	private ImageButton btnLogin;
 	private ImageButton btnRegister;
 	private ImageButton btnBookRead;

@@ -16,7 +16,7 @@
     <string name="title_activity_book_list">BookList</string>
     <string name="btn_bookread">離線閱讀</string>
     <string name="btn_login">登入</string>
-    <string name="url_host">http://192.168.0.103/dandingbook/</string>
+    <string name="url_host">http://192.168.0.222/dandingbook/</string>
     <string name="url_agent">agent.php</string>
     <string name="url_image">upload/images/</string>
     <string name="url_book">upload/book/</string>
