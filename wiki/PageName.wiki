@@ -3,7 +3,7 @@
 = Introduction =
 
 DandingBook 淡定書城首頁
-  * [http://dandingbook.no-ip.info http://dandingbook.no-ip.info/]
+  * http://dandingbook.no-ip.info/
   * http://dandingbook.html-5.me/
 
 
