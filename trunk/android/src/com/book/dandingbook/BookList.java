@@ -30,11 +30,11 @@ public class BookList extends Activity {
         
         lstBook = (ListView)findViewById(R.id.lstBook);
     	
+        // 初始化小說清單
+    	initBookList();
+    	
         // 從 Server 下載小說清單
     	getBookList();
-
-    	// 初始化小說清單
-    	initBookList();
     }
     
     private ProgressDialog progress;
@@ -44,7 +44,7 @@ public class BookList extends Activity {
     final Runnable DownloadCallback = new Runnable() {
 
 		public void run() {
-			//progress.dismiss();
+			progress.dismiss();
 			Log.d(TAG, "Handler: " + strBookList);
 			
 			String[] aryBookList = strBookList.split(",");
@@ -80,10 +80,16 @@ public class BookList extends Activity {
 	private void getBookList() {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE); 
     	if (Network.haveNetworkConnection(cm)){
+    		// 顯示讀取資料中視窗
+			progress = ProgressDialog.show(
+					this, 
+					getString(R.string.pgs_title), 
+					getString(R.string.pgs_reading));
+			
     		// 透過 Server 的 PHP 讀出 MySQL 的資料內容
     		Thread thread = new Thread() {
     			public void run() {
-    				try {
+    				try {    					
     					if (Debug.On) Log.d(TAG, "Sent GET request");
     					strBookList = Network.getData(
     							getString(R.string.url_host) + getString(R.string.url_agent), 
@@ -99,7 +105,7 @@ public class BookList extends Activity {
     		};
     		
     		try {
-	    		//progress.show();
+	    		progress.show();
 	    	    thread.start();
     		} catch (Exception e) {
     			Log.e(TAG, e.getMessage());

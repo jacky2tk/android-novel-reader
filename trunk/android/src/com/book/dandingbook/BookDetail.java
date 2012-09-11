@@ -32,6 +32,7 @@ public class BookDetail extends Activity {
 	private CustomAdapter adapter;
 	private Thread thread;
 	private ProgressDialog progress;		// 下載檔案中的進度提示
+	private ConnectivityManager cm;			// 連線管理程式
 	
 	private final int GET_BOOK_DETAIL = 1;
 	private final int DOWNLOAD_BOOK_FILE = 2;
@@ -58,12 +59,21 @@ public class BookDetail extends Activity {
         
         // 建立 Bundle (解開 Intent 包使用)
         Bundle extras = getIntent().getExtras();
-    	
-        // 從 Server 下載小說詳細資料
-        sendGetRequest(GET_BOOK_DETAIL, extras.getCharSequence("ID").toString());
-
+        
     	// 初始化小說清單
     	initBookList();
+    	
+        // 從 Server 下載小說詳細資料
+    	cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+    	if (Network.haveNetworkConnection(cm)){
+     		// 顯示讀取資料中視窗
+     		progress = ProgressDialog.show(
+					this, 
+					getString(R.string.pgs_title), 
+					getString(R.string.pgs_reading));
+     		
+     		sendGetRequest(GET_BOOK_DETAIL, extras.getCharSequence("ID").toString());
+    	}
     }
     
     // 初始化小說清單
@@ -77,9 +87,7 @@ public class BookDetail extends Activity {
  	}
     
     private void sendGetRequest(final int fun, final String params) {
- 		ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE); 
      	if (Network.haveNetworkConnection(cm)){
-     		
      		// 透過 Server 的 PHP 讀出 MySQL 的資料內容
      		thread = new Thread() {
      			public void run() {
@@ -136,6 +144,7 @@ public class BookDetail extends Activity {
      		
      		try { 	    		
  	    		Log.d(TAG, "Show Progress Dialog.....");
+ 	    		//progress.show();
  	    	    thread.start();
      		} catch (Exception e) {
      			Log.e(TAG, e.getMessage());
@@ -156,7 +165,7 @@ public class BookDetail extends Activity {
     final Runnable BookDetailCallback = new Runnable() {
 
 		public void run() {
-			//progress.dismiss();
+			progress.dismiss();
 			//Toast.makeText(BookDetail.this, "Download Complete!", Toast.LENGTH_LONG).show();			
 			
 			if (aryBookDetail.length > 0) {				
@@ -231,10 +240,7 @@ public class BookDetail extends Activity {
 			Toast.makeText(BookDetail.this, "下載完成!", Toast.LENGTH_LONG).show();
 			
 			// 增加到「已下載的資料庫」
-			ContentValues values = new ContentValues() ;
-			values.put(BookSchema.BOOK_NAME.toString(), aryBookDetail[B_NAME]) ;
-			values.put(BookSchema.SDCARD.toString(), aryBookDetail[B_PATH]) ;
-			OffReadList.db.insert(BookSchema.TABLE_NAME.toString(), null, values) ;
+			OffReadList.addData(aryBookDetail[B_NAME], aryBookDetail[B_PATH]);
 
 			// 設定 Alert 對話框
 			AlertDialog.Builder builder = new AlertDialog.Builder(BookDetail.this);

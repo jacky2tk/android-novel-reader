@@ -107,6 +107,9 @@ public final class R {
         public static final int hello_world=0x7f060008;
         public static final int login_warn=0x7f06001d;
         public static final int menu_settings=0x7f060009;
+        public static final int pgs_connecting=0x7f060024;
+        public static final int pgs_reading=0x7f060025;
+        public static final int pgs_title=0x7f060023;
         public static final int pwd_warn=0x7f06001b;
         public static final int regist_ok=0x7f060022;
         public static final int title_activity_add_mem=0x7f060013;
