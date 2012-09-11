@@ -1,21 +1,21 @@
 <?php
 include dirname(__FILE__)."/db.fun.php";
-include dirname(__FILE__)."/compo.fun.php";
+//include dirname(__FILE__)."/compo.fun.php";	// 放到 Summerhost 免空會出現問題，暫時不載入此檔
 
 $TmpPath = explode("/",$_SERVER["PHP_SELF"]);
 
 
 # MySQL
-$GLOBALS["SQL_HOST"] = "localhost";
+$GLOBALS["SQL_HOST"] = "sql203.summerhost.info";
 
 if($_SERVER["HTTP_HOST"]=="127.0.0.1"){
-    $GLOBALS["SQL_NAME"] = "danding_book";
-    $GLOBALS["SQL_USER"] = "root";
-    $GLOBALS["SQL_PASS"] = "1";
+    $GLOBALS["SQL_NAME"] = "sum_10838368_danding_book";
+    $GLOBALS["SQL_USER"] = "sum_10838368";
+    $GLOBALS["SQL_PASS"] = "chenboy";
 }else{
-    $GLOBALS["SQL_NAME"] = "danding_book";
-    $GLOBALS["SQL_USER"] = "root";
-    $GLOBALS["SQL_PASS"] = "1";
+    $GLOBALS["SQL_NAME"] = "sum_10838368_danding_book";
+    $GLOBALS["SQL_USER"] = "sum_10838368";
+    $GLOBALS["SQL_PASS"] = "chenboy";
 }
 
 
