@@ -1,0 +1,204 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>淡定書城</title>
+<style type="text/css">
+<!--
+body {
+	margin-top: 20px;
+	margin-left: 100px;
+	margin-right: 100px;
+	background-color: #F90;
+}
+a:link {
+	color: #999;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #999;
+}
+a:hover {
+	text-decoration: none;
+	color: #F00;
+}
+a:active {
+	text-decoration: none;
+	color: #F90;
+}
+.style31 {
+	font-size: 17px; 
+	font-weight: bold; 
+	color: #FFFFFF; 
+	background-color: #5C2D0A;
+	cursor: pointer; 
+}
+.style35 {
+	font-size: 17px;
+	font-weight: bold;
+	//color: #999999;
+	//cursor: pointer;
+	cursor:hand;
+}
+
+.img_shadow {margin:0;padding:0; -webkit-box-reflect: below 1px -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(.5, transparent), to(rgba(3,3,3,.2)));background: -webkit-gradient(linear,0% 0%,0% 100%,from(rgba(174,188,191,1)),color-stop(50%,rgba(110,119,116,1)),color-stop(51%,rgba(10,14,10,1)),to(rgba(10,8,9,1)));-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
+-->
+</style>
+
+<script language="JavaScript" type="text/JavaScript">
+function jdiv(m_divid){
+	for(var m_i = 1;m_i <= 4; m_i++){
+		document.getElementById('div_'+m_i).style.display = "none" ;
+		document.getElementById('myspan_'+m_i).className = "style35" ;
+	}
+	
+	document.getElementById('div_'+m_divid).style.display = "block" ;
+	document.getElementById('myspan_'+m_divid).className = "style31" ;
+}
+
+function test() {
+	window.alarm("!");
+}
+
+function jlogout(){
+	if(confirm("您確定要登出嗎?")){
+		m_return = jajax("sql_ajax.php?case=logout") ;
+		if(m_return){
+			location.href="login.html" ;
+		}
+	}
+}
+</script>
+</head>
+<body>
+<table width="1000" border="0" bgcolor="#FFFFCC" align="center">
+
+<!-- 表頭 -->
+<tr><td colspan=3 height=10></td></tr>
+
+<!-- 表身 -->
+<tr>
+<td width=20></td>	<!-- 左側空白欄 -->
+<td>
+<img src="image/logo2_s.gif" align="left">
+<h1 align="center" class="style10 style18">Danding Book 淡定書城</h1>
+<p align="right">培訓單位：<a href="http://www.all-taiwan.com.tw/">上益電腦國際認證中心</a></p>
+
+<hr style="margin: 0px;" />
+<!-- 功能選單 -->
+<!--
+	http://www.ssi-developer.net/css/menu-rollover-effect_table.shtml
+-->
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" style="border-spacing:0px;cellpadding=0px">
+  <tr height=40>
+  	<span id="myspan_0" class="style31"></span>
+    <td id="myspan_1" class="style31" align="center" onfocus="test();"><span onclick="jdiv(1);">軟體簡介</span></td>
+    <td id="myspan_2" class="style35" align="center" ><span onclick="jdiv(2);">操作影片</span></td>
+    <td id="myspan_3" class="style35" align="center" ><span onclick="jdiv(3);">系統架構</span></td>
+    <td id="myspan_4" class="style35" align="center" ><span onclick="jdiv(4);">開發備註</span></td>
+  </tr>
+</table>
+<hr style="margin: 0px;" />
+
+<!------- 軟體簡介 ---------------------------------------------------------------------->
+<div id="div_1" style="display:block" align="center">
+	<a name="軟體簡介"></a>
+	<h1 align="center">軟體簡介</h1>
+	<table border=0" align="center">
+	<tr><td width=500><p align="left">
+	<br /><br />		
+	　　<font color="blue"><strong>小說、雜誌隨身攜帶，已經不再是麻煩事！</strong></font><br /><br />
+	　　揮別過去沉重的負擔，「Danding Book (淡定書城) APP」讓使用者能將多本書籍、雜誌一次帶出門，且結合了音樂播放器讓使用者邊看書籍邊聽音樂，同時擁有視覺與聽覺的享受，「Danding Book APP」能將書籍雜誌下載於個人手機，讓使用者在沒有網路的情況下也可以使用與聽音樂。</p>
+	
+		<center>
+			<a href="http://dandingbook.html-5.me/download.php">
+			<img src="image/download_button.jpg" width=200 />
+			</a>
+		<center>
+	</td>
+		<td width=10></td>
+	<td>
+		<img src="image/logo01.png" height=250 align="right" class="img_shadow" />
+	</td>
+	</tr>	
+	</table>
+	<br /><br /><br /><br /><br />
+	
+	
+	<!-- 畫面預覽 -->
+	<table border=1 width=800 bgcolor="white">
+	<tr><td><br />
+	  <marquee>
+		  <img src="image\logo01.png">&nbsp;&nbsp;&nbsp;&nbsp;
+		  <img src="image\logo02.png">&nbsp;&nbsp;&nbsp;&nbsp;
+		  <img src="image\logo03.png">&nbsp;&nbsp;&nbsp;&nbsp;
+		  <img src="image\logo04.png">&nbsp;&nbsp;&nbsp;&nbsp;
+		  <img src="image\logo05.png">&nbsp;&nbsp;&nbsp;&nbsp;
+		  <img src="image\logo06.png">
+	  </marquee>
+	<br /><br /></td></tr>
+	</table>
+	
+	<table border=0><tr height=10><td></td></tr></table>	<!-- 拉大版面 -->
+</div>
+
+<!------- 操作影片 ---------------------------------------------------------------------->
+<div id="div_2" style="display:none" align="center">
+	<a name="操作影片"></a>
+	<h1 align="center">操作影片</h1>
+	<!-- 操作影片 -->
+	<div align="center">
+		<embed src="http://www.youtube.com/v/QuY03Tc2t2g" width="800" type="application/x-shockwave-flash" height="450" wmode="transparent" align="ABSMIDDLE"></embed>
+	</div>
+	<table border=0><tr height=10><td></td></tr></table>	<!-- 拉大版面 -->
+</div>
+
+<!------- 系統架構 ---------------------------------------------------------------------->
+<div id="div_3" style="display:none" align="center">
+	<a name="系統架構"></a>
+	<h1 align="center">系統架構</h1>
+	<p align="center"><img src="image/logo07.png" width="504" height="594" border=2 /></p><br>
+	
+	<h1 align="center">流程圖</h1>
+	<p align="center"><img src="image/logo08.png" width="504" height="594" border=2 /></p>
+</div>
+
+<!------- 開發備註 ---------------------------------------------------------------------->
+<div id="div_4" style="display:none" align="center">
+	<a name="開發備註"></a>
+	<h1 align="center">開發團隊</a></h1>
+	<table width="259" border="1" align="center">
+		<tr>
+			<td width="104" height="40" bgcolor="#FF9900"><strong>組長</strong></td>
+			<td width="139">陳裕允</td>
+		</tr>
+		<tr>
+			<td height="100" bgcolor="#FF9900"><strong>組員</strong></td>
+			<td>魏伊君<br />
+			柯菁怡<br />
+			林威成</td>
+		</tr>
+		<tr>
+			<td height="70" bgcolor="#FF9900"><strong>指導老師</strong></td>
+			<td><p>林靖傑<br />
+			陳凱宏</p></td>
+		</tr>
+	</table>
+	<br />
+	
+	<h1>開發環境</h1>
+	<img src="image/logo09.png" align="center" />
+	
+	<table border=0><tr height=20><td></td></tr></table>	<!-- 拉大版面 -->
+</div>
+
+</td>
+<td width=20></td>	<!-- 右側空白欄 -->
+</tr>
+
+<!-- 表尾 -->
+<tr><td colspan=3 height=30></td></tr>	
+</table>
+<iframe style="display:none">	<!-- 去除廣告 -->
+</body>
+</html>
