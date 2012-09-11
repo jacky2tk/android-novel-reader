@@ -10,13 +10,17 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -30,6 +34,7 @@ public class Main extends Activity {
 	private static final String TAG = "Danding_Main";
 	private static NotificationManager barManager = null;
 	private static Notification barMsg = null;
+	private static final int MENU_ABOUT = Menu.FIRST;
 
 	public static String strUID = "";
 	private String Message = "";
@@ -79,7 +84,7 @@ public class Main extends Activity {
 		if (Debug.On) {
 			txt_account.setText("a");
 			txt_pwd.setText("a");
-		}
+		}		
 	}
 
 	@Override
@@ -202,7 +207,65 @@ public class Main extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
+		SubMenu subMenu = menu.addSubMenu(MENU_ABOUT, MENU_ABOUT, 0, "關於本程式"); 
 		return true;
+	}
+	
+	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		String versionName = "";
+		int versionCode;
+		
+		switch (item.getItemId()) {
+		case MENU_ABOUT:
+			// 取得程式版本訊息
+			// 參考來源: http://www.wretch.cc/blog/tacor/22070804
+			try {
+				// versionName 版本名稱 (文字)
+				versionName = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0).versionName;
+
+				//versionCode 版本代碼 (整數)
+				versionCode = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0).versionCode;
+				
+
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("程式名稱：" + getString(R.string.app_name) + "\n");
+			sb.append("版本：" + versionName + "\n");
+			
+			// 設定 Alert 對話框
+			AlertDialog.Builder builder = new AlertDialog.Builder(Main.this);
+			builder.setTitle("關於本程式");
+			builder.setMessage(sb.toString());
+			
+			// 按鈕：確定
+			builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+				
+				public void onClick(DialogInterface dialog, int which) {
+					// Do Nothing...
+				}
+			});
+			
+			// 按鈕: 首頁
+			builder.setNegativeButton("首頁", new DialogInterface.OnClickListener() {
+				
+				public void onClick(DialogInterface dialog, int which) {
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://dandingbook.html-5.me/"));
+					startActivity(intent);
+				}
+			});
+			
+			builder.show();	
+			break;
+		
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
