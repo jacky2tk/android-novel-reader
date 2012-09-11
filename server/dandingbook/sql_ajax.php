@@ -43,17 +43,21 @@ switch ($m_case){
 		$m_id = $m_data[0] ;
 		$m_pwd = $m_data[1] ;
 		
+		// 原使用 session_register 指令設定 SESSION 變數
+		// 但 PHP 5.3.0 不建議使用, PHP 5.4.0 已正式移除此指令
+		// 因此改成使用文件建議的 $_SESSION 方式設定
+		// http://php.net/manual/en/function.session-register.php
 		if($m_id=="root"&&$m_pwd=="1"){
-			session_register("LOGIN") ;
+			$_SESSION["LOGIN"] = 1;
 			echo true ;
 		}
 		else{
-			session_unregister("LOGIN") ;
+			$_SESSION["LOGIN"] = 0;
 			echo false ;
 		}
 		exit ;
 	case "logout" :
-		session_unregister("LOGIN") ;
+		$_SESSION["LOGIN"] = 0;
 		echo true ;
 		exit ;
 }

@@ -10,9 +10,11 @@ $m_data = $_GET['data'] ;	// 取得使用者輸入資訊
 
 $CONST_SPLITER = ",";		// 資料分隔符號
 
+/*
 mysql_query("SET NAMES 'utf8'"); 
 mysql_query("SET CHARACTER_SET_CLIENT=utf8"); 
 mysql_query("SET CHARACTER_SET_RESULTS=utf8");
+*/
 
 switch ($m_case) {
 	// --------------------------------------------------------------

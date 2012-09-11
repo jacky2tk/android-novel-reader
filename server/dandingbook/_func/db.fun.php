@@ -2,10 +2,15 @@
 
 #Query
 function DB_QUERY($SQL) {
+	// mysql_db_query 等連到資料庫的相關指令在 PHP 5.3.0 已不建議使用
+	// 改成文件範例示範的方法
+	// http://tw2.php.net/manual/en/function.mysql-db-query.php
 	#echo $SQL. "<BR>";
-	mysql_connect($GLOBALS["SQL_HOST"], $GLOBALS["SQL_USER"], $GLOBALS["SQL_PASS"]) or DIE ("<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><div align=center><h2>Server 忙錄中，請稍後再試；或請連絡管理人員</h2></div>");
-	mysql_query("SET NAMES UTF8");
-	$RES = mysql_db_query($GLOBALS["SQL_NAME"], $SQL) or DIE ("<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><div align=center><h2>資料表錯誤，請連絡管理人員</h2></div>".mysql_error());
+	$LINK = mysql_connect($GLOBALS["SQL_HOST"], $GLOBALS["SQL_USER"], $GLOBALS["SQL_PASS"]) or DIE ("<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><div align=center><h2>Server 忙錄中，請稍後再試；或請連絡管理人員</h2></div>");
+	//$RES = mysql_db_query($GLOBALS["SQL_NAME"], $SQL) or DIE ("<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><div align=center><h2>資料表錯誤，請連絡管理人員</h2></div>".mysql_error());
+	mysql_select_db($GLOBALS["SQL_NAME"], $LINK)  or DIE ("<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><div align=center><h2>資料庫錯誤，請連絡管理人員</h2></div>".mysql_error());;
+	mysql_query("SET NAMES UTF8");	
+	$RES = mysql_query($SQL, $LINK) or DIE ("<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><div align=center><h2>資料表錯誤，請連絡管理人員</h2></div>".mysql_error());
 	return $RES;
 }
 

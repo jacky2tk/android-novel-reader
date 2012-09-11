@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- 主機: localhost
--- 建立日期: Aug 20, 2012, 05:28 AM
+-- 建立日期: Sep 11, 2012, 02:07 PM
 -- 伺服器版本: 5.0.51
 -- PHP 版本: 5.2.6
 
@@ -28,7 +28,7 @@ CREATE TABLE `all_book` (
   `b_author` varchar(20) default NULL,
   `b_issue` varchar(20) default NULL,
   PRIMARY KEY  (`b_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 -- 
 -- 列出以下資料庫的數據： `all_book`
@@ -42,6 +42,9 @@ INSERT INTO `all_book` VALUES (5, '我的黑道男友', 'book_5.txt', 'img_5.jpg
 INSERT INTO `all_book` VALUES (6, '傾世皇妃', 'book_6.txt', 'img_6.jpg', '夜闌翩舞雪海心...', '慕容湮兒', '中國畫報出版社');
 INSERT INTO `all_book` VALUES (7, '天龍八部', 'book_7.txt', 'img_7.jpg', '青衫磊落險峰行 .....', '金庸', '遠流出版社');
 INSERT INTO `all_book` VALUES (8, '神雕俠侶', 'book_8.txt', 'img_8.jpg', '風月無情 ....', '金庸', '遠流出版社');
+INSERT INTO `all_book` VALUES (9, '雄霸蠻荒', 'book_9.txt', 'img_9.jpg', '章葉意外融合了前一世的記憶，並從記憶中，獲得一本《道德經》。憑此一書，章葉從底層一步步崛起，以自己的...', '淡定從容的某人', '小說頻道');
+INSERT INTO `all_book` VALUES (10, '金剛法神', 'book_10.txt', 'img_10.jpg', '儘管因為殺戮殘暴而不允許上崗，張震卻仍是中南海保鏢中殺神一般的存在！他的隕落，是失去國寶級別的遺憾，...', '白衫盛雪', '小說頻道');
+INSERT INTO `all_book` VALUES (11, '魔神召喚士', 'book_11.txt', 'img_11.jpg', '偶老爸是魔神王，偶老媽是天界公主，偶外婆是諸神之王，外公隻魔界之王，偶就是天字第一號的紈褲少爺，誰能...', '網絡騎士', '小說頻道');
 
 -- --------------------------------------------------------
 
