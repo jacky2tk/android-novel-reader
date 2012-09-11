@@ -21,8 +21,6 @@ mysql_query("SET CHARACTER_SET_RESULTS=utf8");
 <style type="text/css">
 <!--
 
-
-
 .style6 {color: #333333}
 .style7 {font-size: 15px; color: #333333; }
 .style11 {color: #FFFFFF; font-size: 17px; font-weight: bold; }
@@ -126,6 +124,8 @@ function jselect_change(){
 
 <body>
 <h1 align="center" class="style10 style18">Danding Book 後台管理</h1>
+
+<!-- 功能選單 ----------------------------------------------------------------------------->
 <hr />
 <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
@@ -139,7 +139,7 @@ function jselect_change(){
 <hr />
 <br />
 
-
+<!-- 書籍檔案上傳系統 ----------------------------------------------------------------------------->
 <div id="div_1" style="display:none" align="center">
 <form action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
   <table width="682" height="269" border="0" cellpadding="0" cellspacing="0">
@@ -257,6 +257,8 @@ if($_POST['hidden_up']!=""){
 }
 ?>
 </div>
+
+<!-- 書籍列表 ----------------------------------------------------------------------------->
 <div id="div_2" style="display:none" align="center">
 <?php
 $m_book = DB_QUERY("SELECT * FROM $GLOBALS[DB_BOOK]");
@@ -309,6 +311,8 @@ if($_POST['sel_hidden']!=""){
 	$m_div0 = "none" ;
 }
 ?>
+
+<!-- 會員下載列表 ----------------------------------------------------------------------------->
 <div id="div_3" style="display:<?php echo $m_div ;?>" align="center">
 <?php
 $m_user = DB_QUERY("SELECT * FROM $GLOBALS[DB_USER]");
@@ -396,11 +400,12 @@ while($m_row=mysql_fetch_array($m_query)){
 
 </div>
 
+<!-- 提示選擇 ----------------------------------------------------------------------------->
 <div class="style8" id="div_0" style="display:<?php echo $m_div0; ?>">
   <div align="center" class="style9">請由上方列表選擇您要的工作</div>
 </div>
+
 </form>
+<iframe style="display:none">	<!-- 去除廣告 -->
 </body>
-
-
 </html>
