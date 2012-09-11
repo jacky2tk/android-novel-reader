@@ -1,13 +1,16 @@
 package com.book.dandingbook;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +33,8 @@ public class Main extends Activity {
 
 	public static String strUID = "";
 	private String Message = "";
+	
+	private ProgressDialog progress;
 
 	@Override
 	protected void onDestroy() {
@@ -44,6 +49,7 @@ public class Main extends Activity {
 		// 移除 Title bar
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
+		
 		findViews(); // 取得所有控制項
 		setListeners(); // 設定所有按鈕 Listener
 
@@ -65,12 +71,20 @@ public class Main extends Activity {
 		barMsg.setLatestEventInfo(this, "淡定書城", "Danding Book", contentIntent);
 		barManager.cancelAll();
 		barManager.notify(0, barMsg);
+		
+		// 建立資料庫連線
+		OffReadList.connectDB(this);
+		
+		// 開發 Debug 模式時, 自動填入測試的帳號及密碼
+		if (Debug.On) {
+			txt_account.setText("a");
+			txt_pwd.setText("a");
+		}
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		
 		
 	}
 
@@ -129,6 +143,7 @@ public class Main extends Activity {
 			// Toast.makeText(AddMem.this, "Download Complete!",
 			// Toast.LENGTH_LONG).show();
 			Log.d(TAG, "Handler: " + strUID);
+			progress.dismiss();
 
 			TextView login_warn = (TextView) findViewById(R.id.login_warn);
 			login_warn.setText("");
@@ -146,6 +161,12 @@ public class Main extends Activity {
 	private void getMain(final CharSequence contents) {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 		if (Network.haveNetworkConnection(cm)) {
+			// 顯示連線中視窗
+			progress = ProgressDialog.show(
+					this, 
+					getString(R.string.pgs_title), 
+					getString(R.string.pgs_connecting));
+			
 			Thread thread = new Thread() {
 				public void run() {
 					try {
@@ -167,6 +188,7 @@ public class Main extends Activity {
 			};
 			try {
 				Log.d(TAG, "AddMem_Connectivity");
+				progress.show();
 				thread.start();
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage());

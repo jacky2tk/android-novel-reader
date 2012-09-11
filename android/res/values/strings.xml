@@ -16,7 +16,7 @@
     <string name="title_activity_book_list">BookList</string>
     <string name="btn_bookread">離線閱讀</string>
     <string name="btn_login">登入</string>
-    <string name="url_host">http://192.168.0.222/dandingbook/</string>
+    <string name="url_host">http://dandingbook.html-5.me/</string>
     <string name="url_agent">agent.php</string>
     <string name="url_image">upload/images/</string>
     <string name="url_book">upload/book/</string>
@@ -28,5 +28,8 @@
     <string name="detail_read">閱讀</string>
     <string name="detail_others">下載其他</string>
     <string name="regist_ok">您的帳號已註冊成功!</string>
+    <string name="pgs_title">連線伺服器</string>
+    <string name="pgs_connecting">連線中，請淡定.....</string>
+    <string name="pgs_reading">讀取資料中，請淡定.....</string>
 
 </resources>
