@@ -203,7 +203,7 @@ public class CustomAdapter extends BaseAdapter {
 				ImageView imageView = (ImageView)convertView.findViewById(R.id.ItemImage);
 				try {
 					//img_Show.setImageResource(R.drawable.shin);
-					Bitmap bm = BitmapFactory.decodeFile(Network.getSDPath().concat((String)ItemInfo.get("ImagePath")));
+					Bitmap bm = BitmapFactory.decodeFile(Network.getSDPath("").concat((String)ItemInfo.get("ImagePath")));
 					imageView.setImageBitmap(bm);
 				} catch (Exception e) {
 					Log.e(TAG, "Image Setting Err: " + e.getMessage());

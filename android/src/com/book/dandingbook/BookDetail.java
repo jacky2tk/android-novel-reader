@@ -252,7 +252,7 @@ public class BookDetail extends Activity {
 				
 				public void onClick(DialogInterface dialog, int which) {
 					Intent intent = new Intent(BookDetail.this, BookRead.class);
-					intent.putExtra("SDcard", aryBookDetail[B_PATH]);
+					intent.putExtra("BOOK_FILENAME", aryBookDetail[B_PATH]);
 					startActivity(intent);
 				}
 			});
@@ -274,13 +274,5 @@ public class BookDetail extends Activity {
         getMenuInflater().inflate(R.menu.book_list, menu);
         return true;
     }
-    
-    /*private class sameClickFunc implements OnClickListener{
 
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			
-		}
-    
-    }*/
 }

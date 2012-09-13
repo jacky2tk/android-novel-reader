@@ -1,7 +1,5 @@
 package com.book.dandingbook;
 
-import java.io.IOException;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -11,7 +9,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,7 +21,6 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -34,7 +30,8 @@ public class Main extends Activity {
 	private static final String TAG = "Danding_Main";
 	private static NotificationManager barManager = null;
 	private static Notification barMsg = null;
-	private static final int MENU_ABOUT = Menu.FIRST;
+	private static final int MENU_ABOUT = Menu.FIRST,
+							 MENU_QUIT = Menu.FIRST + 1;
 
 	public static String strUID = "";
 	private String Message = "";
@@ -58,11 +55,6 @@ public class Main extends Activity {
 		findViews(); // 取得所有控制項
 		setListeners(); // 設定所有按鈕 Listener
 
-		// 開發 Debug 模式時, 自動填入測試的帳號及密碼
-		if (Debug.On) {
-			txt_account.setText("a");
-			txt_pwd.setText("a");
-		}
 		// 將程式註冊到通知列
 		barManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		Intent it_bar = new Intent(Main.this, Main.class);
@@ -79,6 +71,9 @@ public class Main extends Activity {
 		
 		// 建立資料庫連線
 		OffReadList.connectDB(this);
+		
+		// 建立音樂資料夾 (若資料夾不存在)
+		Network.getSDPath("music");
 		
 		// 開發 Debug 模式時, 自動填入測試的帳號及密碼
 		if (Debug.On) {
@@ -206,8 +201,11 @@ public class Main extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		SubMenu subMenu = menu.addSubMenu(MENU_ABOUT, MENU_ABOUT, 0, "關於本程式"); 
+		//getMenuInflater().inflate(R.menu.main, menu);
+		menu.addSubMenu(0, MENU_ABOUT, 0, "關於本程式")
+		.setIcon(android.R.drawable.ic_menu_info_details);
+		menu.addSubMenu(0, MENU_QUIT, 0, "離開")
+		.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
 		return true;
 	}
 	
@@ -227,6 +225,7 @@ public class Main extends Activity {
 				versionName = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0).versionName;
 
 				//versionCode 版本代碼 (整數)
+				// TODO: 可透過此版本代碼判斷軟體是否該更新
 				versionCode = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0).versionCode;
 				
 
@@ -256,12 +255,16 @@ public class Main extends Activity {
 			builder.setNegativeButton("首頁", new DialogInterface.OnClickListener() {
 				
 				public void onClick(DialogInterface dialog, int which) {
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://dandingbook.html-5.me/"));
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_host)));
 					startActivity(intent);
 				}
 			});
 			
 			builder.show();	
+			break;
+			
+		case MENU_QUIT:
+			finish();
 			break;
 		
 		}
@@ -275,29 +278,27 @@ public class Main extends Activity {
 		case KeyEvent.KEYCODE_BACK:
 			AlertDialog.Builder build = new AlertDialog.Builder(this);
 			build.setTitle("注意")
-					.setMessage("確定要退出嗎？")
-					.setPositiveButton("確定",
-							new DialogInterface.OnClickListener() {
-
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-									barManager.cancel(0);
-									android.os.Process
-											.killProcess(android.os.Process
-													.myPid());
-									
-									finish();
-								}
-							})
-					.setNegativeButton("取消",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-								}
-							}).show();
+				.setMessage("確定要退出嗎？")
+				.setPositiveButton("確定",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								barManager.cancel(0);
+								android.os.Process.killProcess(
+										android.os.Process.myPid());								
+								finish();
+							}
+						})
+				.setNegativeButton("取消",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+							}
+						})
+				.show();
 			break;
+			
 		default:
 			break;
 		}

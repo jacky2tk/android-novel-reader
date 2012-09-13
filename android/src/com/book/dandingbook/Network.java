@@ -107,7 +107,7 @@ public class Network {
 			
 			// 定義下載檔案路徑，寫入 FileOutputStream 物件
 			FileOutputStream out = new FileOutputStream(
-				new File(getSDPath(), FileName)
+				new File(getSDPath(""), FileName)
 			); 
 		
 			// 設定下載檔案的 InputStream
@@ -130,10 +130,11 @@ public class Network {
 		}
 	}
 		
-	public static String getSDPath(){
+	public static String getSDPath(String folder){
     	StringBuilder SB = new StringBuilder();
 		SB.append(android.os.Environment.getExternalStorageDirectory().getAbsolutePath());
 		SB.append("/dandingbook/");
+		SB.append(folder);
 		
 		File myDataPath = new File(SB.toString());
     	if (!myDataPath.exists()) {
