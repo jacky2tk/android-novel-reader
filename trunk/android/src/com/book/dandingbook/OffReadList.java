@@ -12,19 +12,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class OffReadList extends Activity {
 	private static final String TAG = "Danding_OffReadList";
 	
-	private ArrayList<CharSequence> Namelist;
-	private ArrayList<CharSequence> IDlist;
-	private ArrayList<CharSequence> SDlist;
+	private ListView lstBook;			// 顯示小說清單的控制項
+	private CustomAdapter adapter;
 	
     // 宣告 DBConnection 及 SQLiteDatabase 握柄
 	private static DBConnection helper;
@@ -35,45 +36,54 @@ public class OffReadList extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_list);
         
+        lstBook = (ListView)findViewById(R.id.lstBook);
+        
+        // 初始化小說清單
+    	initBookList();
+        
         // 取出 off_book 資料表內的書名, 加到 List 內 
         loadData();
   	}
 	
+	// 初始化小說清單
+	private void initBookList() {		
+		//實體化CustomAdapter
+        adapter = new CustomAdapter((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        
+        View ListLabView = adapter.addLabItem("無資料");
+        
+        lstBook.setAdapter(adapter);
+	}
+	
 	// 取出 off_book 資料表內的書名, 加到 List 內 
 	private void loadData() {
+		
+		adapter.clear();
+  		adapter.addSeparator(getString(R.string.off_read_list_title));	// List Title 設定
+  		
   		//query(TABLE名稱，欄位陣列)
   		Cursor c = db.query(BookSchema.TABLE_NAME.toString()
   							,new String[]{BookSchema.ID.toString(),BookSchema.BOOK_NAME.toString(),BookSchema.SDCARD.toString()}
   							,null ,null ,null ,null ,null) ;
   		
-  		//顯示USER_NAME在Spinner表單-spinner上
-  		Namelist = new ArrayList<CharSequence>(); //實體化Namelist
-  		IDlist = new ArrayList<CharSequence>();
-  		SDlist = new ArrayList<CharSequence>();
-  		
   		c.moveToFirst() ; //將Cursor移動到第一筆
   		for(int i = 0 ; i < c.getCount(); i++){  //getCount()資料表共有幾筆資料
-  			IDlist.add(c.getString(0));
-  			Namelist.add(c.getString(1)); //取出資料，0代表取第一個欄位
-  			SDlist.add(c.getString(2));
+  			// c.getString(0) --> ID
+  			// c.getString(1) --> Book name
+  			// c.getString(2) --> Book file
+  			View ListLabView = adapter.addLabItem(c.getString(1));
+  			ListLabView.setTag(c.getString(2).toString());
   			c.moveToNext(); //將Cursor移動到下一筆
   		}
   		
-  		c.close();//關閉cursor
+  		c.close();	// 關閉cursor
   		
-  		ListView ListBook = (ListView)findViewById(R.id.lstBook) ;
-		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
-        		OffReadList.this,
-        		android.R.layout.simple_list_item_1,
-        		Namelist
-        	);
+  		lstBook.setAdapter(adapter);
 		
-		ListBook.setAdapter(adapter);
-		
-		ListBook.setOnItemClickListener(new OnItemClickListener() {
+  		lstBook.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0 ,View view ,int position ,long id) {
 				Intent intent = new Intent(OffReadList.this, BookRead.class); //呼叫RoundList頁面
-	            intent.putExtra("SDcard", SDlist.get(position).toString() );  //傳入DB的路徑
+	            intent.putExtra("BOOK_FILENAME", view.getTag().toString() );  //傳入DB的路徑
 	            startActivity(intent);	//呼叫Activity
 			}
 		}) ;
